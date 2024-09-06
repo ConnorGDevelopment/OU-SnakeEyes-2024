@@ -10,7 +10,7 @@ public class RogueUpgradeManager : MonoBehaviour
     public RogueUpgrade Summary
     {
         get {
-            RogueUpgrade _summary = new();
+            
 
             foreach (var upgrade in Upgrades.Distinct())
             {
