@@ -5,25 +5,14 @@ using UnityEngine;
 
 public class RogueUpgradeManager : MonoBehaviour
 {
-    public readonly List<RogueUpgrade> Upgrades = new List<RogueUpgrade>();
+    public readonly List<RogueUpgrade> Upgrades = new();
 
     public RogueUpgrade Summary
     {
         get {
             RogueUpgrade _summary = new();
 
-            List<RogueUpgrade> _upgrades = new List<RogueUpgrade>();
-
-            foreach (var upgrade in Upgrades) {
-                if (upgrade.Unique)
-                {
-                    if(_upgrades.Find(match => match.Name == upgrade.Name)) { 
-                        // Don't add if match => need to flip if statement
-                    }
-                }
-            };
-
-            foreach (var upgrade in Upgrades)
+            foreach (var upgrade in Upgrades.Distinct())
             {
                 _summary.Damage += upgrade.Damage;
                 _summary.Speed += upgrade.Speed;
