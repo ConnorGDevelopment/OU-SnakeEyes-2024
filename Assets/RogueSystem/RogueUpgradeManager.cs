@@ -35,8 +35,6 @@ public class RogueUpgradeManager : MonoBehaviour
         get {
             RogueUpgrade _summary = new();
 
-            _summary.Damage = Upgrades.Select((upgrade) => upgrade.Damage).Sum();
-
             foreach (var key in Upgrades.GetType().GetProperties() ) { 
                 if(key.PropertyType == typeof(int)) {
 
