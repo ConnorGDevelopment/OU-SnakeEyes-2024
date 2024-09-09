@@ -22,7 +22,7 @@ public class RogueUpgrade
                 return 0;
             }
         }
-    };
+    }
 }
 
 
