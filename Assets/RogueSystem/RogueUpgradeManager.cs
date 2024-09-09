@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class RogueUpgrade
 {
+    // If Unique == true, duplicates of this upgrade don't stack
     public bool Unique { get; set; }
     public string Name { get; set; }
+    // The following are TBD, should match weapon stats
     public int Damage { get; set; }
     public int Speed { get; set; }
     public int Projectiles { get; set; }
     public int Spread { get; set; }
-
+    // Indexer Function
+    // Basically assigns a function to this.propertynamegoeshere, if it exists and is an integer it returns that value, otherwise it returns 0
+    // This lets us index access properties on objects of this class as if it were an array like "this[propertynamegoeshere]"
     public int this[string key] {
         get
         {
@@ -19,6 +23,7 @@ public class RogueUpgrade
                 return this[key];
             } else
             {
+                // If this weren't a getter I could use int? which basically means this value is either int or undefined
                 return 0;
             }
         }
@@ -33,11 +38,24 @@ public class RogueUpgradeManager : MonoBehaviour
     public RogueUpgrade Summary
     {
         get {
+            // Create a blank RogueUpgrade so we can assign stats
             RogueUpgrade _summary = new();
 
+            // Upgrades is our list of upgrades (duh)
+            // Upgrades.GetType() returns the type of the items in the list (RogueUpgrade)
+            // Upgrades.GetType().GetProperties() returns the properties on the the type of the items in the list (RogueUpgrade)
             foreach (var key in Upgrades.GetType().GetProperties() ) { 
+                // Check if the value of it is an integer
                 if(key.PropertyType == typeof(int)) {
+                    // Upgrades.Select() lets you run a function for each member of a list (or other iterable) and returns the output of whatever function you ran
+                    
+                    // The "=>" is called an arrow function and its just a handy shortcut 
+                    // This could also be written as the following                    
+                    // Upgrades.Select((upgrade) {
+                    //  return upgrade[key.ToString()]
+                    // }).Sum();
 
+                    // key.ToString() is just a conversion from whatever weird type key.PropertyType spits out to a string, which we feed into the indexer function on RogueUpgrade
                     Upgrades.Select((upgrade) => upgrade[key.ToString()]).Sum();
                     
                 };
@@ -45,17 +63,5 @@ public class RogueUpgradeManager : MonoBehaviour
 
             return _summary;
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
