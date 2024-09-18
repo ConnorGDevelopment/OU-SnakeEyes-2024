@@ -16,6 +16,5 @@ public class RogueUpgrade : ScriptableObject
     // If Unique == true, duplicates of this upgrade don't stack
     public bool Unique;
     // Readonly dict means elements can be added/removed but the dict can't be replaced
-    [SerializeField]
     public Dictionary<RogueStat, int> Stats = new();
 }
