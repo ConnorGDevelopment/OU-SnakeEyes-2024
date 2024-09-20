@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[CreateAssetMenu]
 public class RogueUpgrade : ScriptableObject
 {
     public enum RogueStat
