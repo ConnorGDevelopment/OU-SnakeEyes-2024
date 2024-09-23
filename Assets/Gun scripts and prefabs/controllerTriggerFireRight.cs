@@ -11,7 +11,7 @@ public class ControllerTriggerFireRight : MonoBehaviour
     public GameObject BulletPrefab;            //Bullet prefab
     public Transform Firepoint;             //Where the bullet will be fired from
     public float GunDetect = 0.5f;      // Variable for the range detection of the gun being in hand
-    private bool InHand;     //Initializing the value to false, can't start the game with gun in hand :/
+    private bool _inHand;     //Initializing the value to false, can't start the game with gun in hand :/
     private ControllerInputs inputData;
     
 
@@ -21,7 +21,7 @@ public class ControllerTriggerFireRight : MonoBehaviour
     {
 
         inputData = GetComponent<ControllerInputs>();   //Getting the data inputs from the controller
-        InHand = false;        //setting the InHand to false
+        _inHand = false;        //setting the InHand to false
 
 
     }
@@ -33,17 +33,17 @@ public class ControllerTriggerFireRight : MonoBehaviour
 
         if (Vector3.Distance(Revolver.transform.position, RevolverSocket.transform.position) <= GunDetect)  //Checking to see if the gun is in the collider
         {
-            InHand = true;
+            _inHand = true;
         }
         else
         {
-            InHand = false;    //if the gun is not in the collider then checks in hand as false
+            _inHand = false;    //if the gun is not in the collider then checks in hand as false
         }
 
 
 
 
-        if (InHand == true)             //Checking to see if the right gun is in the hand
+        if (_inHand == true)             //Checking to see if the right gun is in the hand
         {
             if (inputData._rightController.isValid)     //Checking to see if the controller data is valid
             {
