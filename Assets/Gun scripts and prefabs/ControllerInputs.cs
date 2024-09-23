@@ -10,12 +10,12 @@ public class ControllerInputs : MonoBehaviour
     public InputDevice _rightController;
     public InputDevice _leftController;
     public InputDevice _HMD;
-
+    public uint channel = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -23,6 +23,11 @@ public class ControllerInputs : MonoBehaviour
     {
         if (!_rightController.isValid || !_leftController.isValid || !_HMD.isValid)
             InitializeInputDevices();
+
+
+
+        _rightController.SendHapticImpulse(channel, .5f, .5f);
+
     }
 
     private void InitializeInputDevices()
