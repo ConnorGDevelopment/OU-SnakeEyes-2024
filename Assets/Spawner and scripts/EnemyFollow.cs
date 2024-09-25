@@ -12,7 +12,7 @@ public class EnemyFollow : MonoBehaviour
 
     private void Start()
     {
-        speed = Random.Range(0.008f, 0.05f);         
+        speed = Random.Range(0.008f, 0.05f);
     }
 
 

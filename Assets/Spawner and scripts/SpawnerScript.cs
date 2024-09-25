@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawningScript : MonoBehaviour
+public class SpawnerScript : MonoBehaviour
 {
     public GameObject enemy;        // The enemy prefab to spawn
     public BoxCollider spawnArea;   // The BoxCollider defining the spawn area

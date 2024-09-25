@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletHit : MonoBehaviour
 {
-    
+
     public float velocity = 20f; // Bullet velocity
     public float delayTime = 5f; // Optional delay to destroy the bullet after a certain time
 
@@ -13,18 +13,20 @@ public class BulletHit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(TryGetComponent<Rigidbody>(out Rigidbody rb)) {
-            
+        if (TryGetComponent<Rigidbody>(out Rigidbody rb))
+        {
+
             // Apply velocity in the forward direction of the bullet
             rb.velocity = transform.forward * velocity;
 
             // Destroy the bullet after a delay to avoid it lingering indefinitely
             Destroy(gameObject, delayTime);
-        } else
+        }
+        else
         {
             Debug.Log("Screeeeeeeeeech");
         }
-     
+
     }
 
     // This method is called when the bullet enters a trigger collider

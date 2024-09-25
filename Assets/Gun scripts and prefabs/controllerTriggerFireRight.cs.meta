@@ -3,7 +3,11 @@ guid: 2242edd13c8d7db44a14497416dbf05f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Revolver: {fileID: 5090290578969570212, guid: f1e45be36776e374bbd4db51cb1e49e2, type: 3}
+  - RevolverSocket: {fileID: 469024880365950590, guid: 34623b0b6b58ee54d9b4674ee0f2eba1, type: 3}
+  - BulletPrefab: {instanceID: 0}
+  - Firepoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

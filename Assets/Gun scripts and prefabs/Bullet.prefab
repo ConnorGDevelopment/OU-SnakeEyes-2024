@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a5fb16c9614f848a78ad8384fffa1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 40
+  velocity: 80
   delayTime: 5
 --- !u!54 &1373788403703824642
 Rigidbody:

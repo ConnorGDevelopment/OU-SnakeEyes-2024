@@ -72,7 +72,7 @@ public class ControllerTriggerFireRight : MonoBehaviour
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null)
         {
-            bulletRb.velocity = Firepoint.forward * 60f;
+            bulletRb.velocity = Firepoint.forward * 150f;
         }
 
 
