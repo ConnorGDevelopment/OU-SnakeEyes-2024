@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Test
   Unique: 0
+  Stats:
+  - Key: 0
+    Value: 0

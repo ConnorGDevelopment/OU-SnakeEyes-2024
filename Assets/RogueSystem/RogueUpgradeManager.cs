@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class RogueUpgradeManager : MonoBehaviour
 {
-    // Readonly list means elements can be added/removed but the list can't be replaced
-    public readonly List<RogueUpgrade> Upgrades = new();
+    public List<RogueUpgrade> Upgrades = new();
 
     public List<RogueUpgrade.RogueStat> Summary
     {
