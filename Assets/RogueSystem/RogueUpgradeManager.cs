@@ -6,12 +6,12 @@ public class RogueUpgradeManager : MonoBehaviour
     // Readonly list means elements can be added/removed but the list can't be replaced
     public readonly List<RogueUpgrade> Upgrades = new();
 
-    public RogueUpgrade Summary
+    public List<RogueUpgrade.RogueStat> Summary
     {
         get
         {
-            // Create a blank RogueUpgrade so we can assign stats
-            RogueUpgrade summary = ScriptableObject.CreateInstance<RogueUpgrade>();
+            // Create a blank Dictionary so we can assign stats w/o duplicating keys
+            Dictionary<RogueUpgrade.RogueStatKey, int> summaryDict = new();
 
             // Start new list of upgrades to do some filtering
             List<RogueUpgrade> upgrades = new();
@@ -33,15 +33,24 @@ public class RogueUpgradeManager : MonoBehaviour
                 foreach (var stat in upgrade.Stats)
                 {
                     // If stat exists, increment by value, otherwise add the stat and value
-                    if (summary.Stats.ContainsKey(stat.Key))
+                    if (summaryDict.ContainsKey(stat.Key))
                     {
-                        summary.Stats[stat.Key] += stat.Value;
+                        summaryDict[stat.Key] += stat.Value;
                     }
                     else
                     {
-                        summary.Stats.Add(stat.Key, stat.Value);
+                        summaryDict.Add(stat.Key, stat.Value);
                     }
+
                 }
+            }
+
+            // Convert dict into list and ship
+            List<RogueUpgrade.RogueStat> summary = new();
+
+            foreach (var stat in summaryDict)
+            {
+                summary.Add(new RogueUpgrade.RogueStat(stat.Key, stat.Value));
             }
 
             return summary;
