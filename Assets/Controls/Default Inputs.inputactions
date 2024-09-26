@@ -92,17 +92,6 @@
                 },
                 {
                     "name": "",
-                    "id": "09ccc6ac-ad79-460d-8226-32192acc8f70",
-                    "path": "<XRSimulatedHMD>/centerEyePosition",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "Position",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4d22c160-9642-4784-bed3-f108d9099185",
                     "path": "<HandheldARInputDevice>/devicePosition",
                     "interactions": "",
@@ -116,17 +105,6 @@
                     "name": "",
                     "id": "e2017383-a3f6-4c46-acb1-012b8eece9cc",
                     "path": "<XRHMD>/centerEyeRotation",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "Rotation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "65fbc8b6-3b1e-4e28-b28d-becf2d0173d9",
-                    "path": "<XRSimulatedHMD>/centerEyeRotation",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -290,30 +268,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ae47f2df-f35d-4389-9782-197d293c88ad",
-                    "path": "<XRSimulatedHMD>/trackingState",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "Tracking State",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "15eff92f-dac7-4e6e-986c-08b3f1e73fac",
                     "path": "<XRHMD>/isTracked",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "Is Tracked",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8f4e33f4-37f1-4d9a-a2fa-9d83b6e1b2d7",
-                    "path": "<XRSimulatedHMD>/isTracked",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
