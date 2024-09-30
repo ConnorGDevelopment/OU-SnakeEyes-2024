@@ -58,7 +58,7 @@ namespace Weapons
         public void OnGrab(SelectEnterEventArgs ctx)
         {
             // Toggling the PlayerInput on/off does what the InHand check did, prevents shooting when not in hand
-            PlayerInput.enabled = true;
+            /*PlayerInput.enabled = true;*/
             // Roundabout way to get the name of which controller grabbed this (no direct gameobject access, had to use transform)
             WhichHand = ctx.interactorObject.transform.gameObject.name;
             Debug.Log($"Revolver Grabbed by: {ctx.interactorObject}");
@@ -66,7 +66,7 @@ namespace Weapons
         }
         public void OnRelease(SelectExitEventArgs ctx)
         {
-            PlayerInput.enabled = false;
+            /*PlayerInput.enabled = false;*/
             WhichHand = "";
             Debug.Log($"Revolver Released by: {ctx.interactorObject}");
             Debug.Log($"Revolver Input: {PlayerInput.enabled}");

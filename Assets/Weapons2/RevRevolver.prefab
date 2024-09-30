@@ -701,7 +701,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6748961492001946247}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -1117,6 +1117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 1823286099060419912, guid: 6603b645600e074469d924deff64d4c7, type: 3}
+  GunData: {fileID: 11400000, guid: 932415630810c0f439fd07892bdfcab2, type: 2}
   Firepoint: {fileID: 0}
-  PlayerInput: {fileID: 0}
+  PlayerInput: {fileID: 241913760033728518}
   WhichHand: 

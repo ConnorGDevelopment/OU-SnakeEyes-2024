@@ -1,14 +1,16 @@
 using Rogue;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Weapons
 {
+    [CreateAssetMenu(menuName = "GunData")]
     public class GunData : UpgradeData
     {
-        public new List<Stat> Stats = new()
+        public void Awake()
         {
-            new Stat(StatKey.Speed, floatValue: 60f)
-        };
+            Stats.Add(new(StatKey.Speed, floatValue: 60f));
+        }
 
     }
 
