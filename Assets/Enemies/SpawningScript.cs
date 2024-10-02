@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SpawningScript : MonoBehaviour
 {
-    public GameObject enemy;        // The enemy prefab to spawn
-    public BoxCollider spawnArea;   // The BoxCollider defining the spawn area
-    public int numberOfEnemies = 5; // Number of enemies to spawn
+    public GameObject enemy;           // The enemy prefab to spawn
+    public BoxCollider[] spawnAreas;   // Array of BoxColliders defining the spawn areas
+    public int numberOfEnemies = 5;    // Number of enemies to spawn
 
     // Start is called before the first frame update
     void Start()
@@ -18,21 +18,23 @@ public class SpawningScript : MonoBehaviour
     {
         for (int i = 0; i < numberOfEnemies; i++)
         {
-            Vector3 randomPosition = GetRandomPositionInBox();
+            Vector3 randomPosition = GetRandomPositionInRandomBox();
             Instantiate(enemy, randomPosition, Quaternion.identity);
         }
     }
 
-    Vector3 GetRandomPositionInBox()
+    Vector3 GetRandomPositionInRandomBox()
     {
-        // Get the size and center of the BoxCollider
-        Vector3 boxSize = spawnArea.size;
-        Vector3 boxCenter = spawnArea.transform.position + spawnArea.center;
+        // Pick a random BoxCollider from the array
+        BoxCollider spawnArea = spawnAreas[Random.Range(0, spawnAreas.Length)];
 
-        // Create random positions within the BoxCollider
-        float randomX = Random.Range(boxCenter.x - boxSize.x / 2, boxCenter.x + boxSize.x / 2);
-        float randomY = Random.Range(boxCenter.y - boxSize.y / 2, boxCenter.y + boxSize.y / 2);
-        float randomZ = Random.Range(boxCenter.z - boxSize.z / 2, boxCenter.z + boxSize.z / 2);
+        // Get the bounds of the BoxCollider in world space
+        Bounds bounds = spawnArea.bounds;
+
+        // Generate random positions within the bounds of the BoxCollider
+        float randomX = Random.Range(bounds.min.x, bounds.max.x);
+        float randomY = Random.Range(bounds.min.y, bounds.max.y);
+        float randomZ = Random.Range(bounds.min.z, bounds.max.z);
 
         return new Vector3(randomX, randomY, randomZ);
     }
