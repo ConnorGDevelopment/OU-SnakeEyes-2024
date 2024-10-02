@@ -454,17 +454,6 @@
                 },
                 {
                     "name": "",
-                    "id": "3542472e-e883-407a-b967-5b879b2d7dc4",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Manipulate Head",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "cd7dcdd6-b569-4c25-87ea-c62a0fb1cf89",
                     "path": "<Keyboard>/v",
                     "interactions": "",
@@ -570,6 +559,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hand-Controller Mode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cea433d4-bac2-4c96-9180-2177fee9f266",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Manipulate Head",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

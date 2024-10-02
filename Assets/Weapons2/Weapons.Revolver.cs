@@ -11,7 +11,6 @@ namespace Weapons
         public GameObject BulletPrefab;
         public GunData GunData;
         public Transform Firepoint;
-        public PlayerInput PlayerInput;
         private Rogue.UpgradeManager _upgradeManager;
 
         public string WhichHand;
@@ -41,14 +40,6 @@ namespace Weapons
                 Debug.Log("No Child named Firepoint", gameObject);
             }
 
-            if (gameObject.TryGetComponent(out PlayerInput playerInput))
-            {
-                PlayerInput = playerInput;
-            }
-            else
-            {
-                Debug.Log("No Player Input Component", gameObject);
-            }
 
             _upgradeManager = UpgradeManager.FindLive(gameObject);
         }
@@ -61,35 +52,45 @@ namespace Weapons
             /*PlayerInput.enabled = true;*/
             // Roundabout way to get the name of which controller grabbed this (no direct gameobject access, had to use transform)
             WhichHand = ctx.interactorObject.transform.gameObject.name;
+
+            if (ctx.interactorObject.transform.gameObject.TryGetComponent<TriggerHandler>(out TriggerHandler triggerHandler))
+            {
+                triggerHandler.OnTrigger.AddListener(FireBullet);
+            }
             Debug.Log($"Revolver Grabbed by: {ctx.interactorObject}");
-            Debug.Log($"Revolver Input: {PlayerInput.enabled}");
+
         }
         public void OnRelease(SelectExitEventArgs ctx)
         {
             /*PlayerInput.enabled = false;*/
             WhichHand = "";
+
+            if (ctx.interactorObject.transform.gameObject.TryGetComponent<TriggerHandler>(out TriggerHandler triggerHandler))
+            {
+                triggerHandler.OnTrigger.RemoveAllListeners();
+            }
             Debug.Log($"Revolver Released by: {ctx.interactorObject}");
-            Debug.Log($"Revolver Input: {PlayerInput.enabled}");
+
         }
 
         // This function is triggered by the Right/Left Activate actions in the Input Map
         // Default is Right/Left controllers both call an Activate function, renamed so it can differentiate
         public void OnFire(InputAction.CallbackContext ctx)
         {
-            if (ctx.ReadValueAsButton())
+
+            Debug.Log(ctx.action.name);
+            // If hand matches the trigger
+            if (WhichHand == "Right Controller" && ctx.action.name == "Right Activate")
             {
-                // If hand matches the trigger
-                if (WhichHand == "Right Controller" && ctx.action.name == "Right Activate")
-                {
-                    Debug.Log("Right Pew");
-                    FireBullet();
-                }
-                else if (WhichHand == "Left Controller" && ctx.action.name == "Left Activate")
-                {
-                    Debug.Log("Left Pew");
-                    FireBullet();
-                }
+                Debug.Log("Right Pew");
+                FireBullet();
             }
+            else if (WhichHand == "Left Controller" && ctx.action.name == "Left Activate")
+            {
+                Debug.Log("Left Pew");
+                FireBullet();
+            }
+
         }
 
         private void FireBullet()
