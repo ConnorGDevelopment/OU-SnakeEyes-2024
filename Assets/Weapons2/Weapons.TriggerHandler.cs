@@ -6,8 +6,11 @@ namespace Weapons
 {
     public class TriggerHandler : MonoBehaviour
     {
-        public UnityEvent OnTrigger;
+        public UnityEvent OnTriggerPull;
 
-        public void HandleTrigger(InputAction.CallbackContext ctx) { OnTrigger.Invoke(); }
+        public void HandleTriggerPull(InputAction.CallbackContext ctx) {
+            Debug.Log($"HandleTriggerPull on {gameObject.name} called on {ctx.action.name}");
+            OnTriggerPull.Invoke(); 
+        }
     }
 }

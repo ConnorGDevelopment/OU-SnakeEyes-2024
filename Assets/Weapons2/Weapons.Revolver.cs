@@ -13,11 +13,6 @@ namespace Weapons
         public Transform Firepoint;
         private Rogue.UpgradeManager _upgradeManager;
 
-        public string WhichHand;
-
-
-
-
         public void Start()
         {
             if (BulletPrefab == null)
@@ -48,53 +43,27 @@ namespace Weapons
         // The Select Enter/Exit are triggered (only once) when grabbed or released
         public void OnGrab(SelectEnterEventArgs ctx)
         {
-            // Toggling the PlayerInput on/off does what the InHand check did, prevents shooting when not in hand
-            /*PlayerInput.enabled = true;*/
-            // Roundabout way to get the name of which controller grabbed this (no direct gameobject access, had to use transform)
-            WhichHand = ctx.interactorObject.transform.gameObject.name;
-
             if (ctx.interactorObject.transform.gameObject.TryGetComponent<TriggerHandler>(out TriggerHandler triggerHandler))
             {
-                triggerHandler.OnTrigger.AddListener(FireBullet);
+                triggerHandler.OnTriggerPull.AddListener(FireBullet);
             }
             Debug.Log($"Revolver Grabbed by: {ctx.interactorObject}");
 
         }
         public void OnRelease(SelectExitEventArgs ctx)
         {
-            /*PlayerInput.enabled = false;*/
-            WhichHand = "";
-
             if (ctx.interactorObject.transform.gameObject.TryGetComponent<TriggerHandler>(out TriggerHandler triggerHandler))
             {
-                triggerHandler.OnTrigger.RemoveAllListeners();
+                triggerHandler.OnTriggerPull.RemoveAllListeners();
             }
             Debug.Log($"Revolver Released by: {ctx.interactorObject}");
 
         }
 
-        // This function is triggered by the Right/Left Activate actions in the Input Map
-        // Default is Right/Left controllers both call an Activate function, renamed so it can differentiate
-        public void OnFire(InputAction.CallbackContext ctx)
-        {
-
-            Debug.Log(ctx.action.name);
-            // If hand matches the trigger
-            if (WhichHand == "Right Controller" && ctx.action.name == "Right Activate")
-            {
-                Debug.Log("Right Pew");
-                FireBullet();
-            }
-            else if (WhichHand == "Left Controller" && ctx.action.name == "Left Activate")
-            {
-                Debug.Log("Left Pew");
-                FireBullet();
-            }
-
-        }
-
+        // Function called when trigger pull
         private void FireBullet()
         {
+            Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
             GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, BulletPrefab.transform.rotation);
 
             if (bullet.TryGetComponent(out Rigidbody bulletRb))
