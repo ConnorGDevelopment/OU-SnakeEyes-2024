@@ -6,7 +6,7 @@ public class BulletHit : MonoBehaviour
 {
     
     public float velocity = 20f; // Bullet velocity
-    public float delayTime = 5f; // Optional delay to destroy the bullet after a certain time
+    public float delayTime = 3f; // Optional delay to destroy the bullet after a certain time
 
     private Rigidbody rb;
 

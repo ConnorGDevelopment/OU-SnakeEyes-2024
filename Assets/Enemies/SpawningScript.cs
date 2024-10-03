@@ -7,20 +7,67 @@ public class SpawningScript : MonoBehaviour
     public GameObject enemy;           // The enemy prefab to spawn
     public BoxCollider[] spawnAreas;   // Array of BoxColliders defining the spawn areas
     public int numberOfEnemies = 5;    // Number of enemies to spawn
+    public float spawnDelay = 0.5f;      //spawning enemies over time
+    public int destroyThreshhold = 15;   //Looking at how many enemies need to be destroyed in order to start a new wave
+    public float newWaveDelay = 10;     //The delay before a new wave spawns, will change later once upgrades are in place
+
+    private List<GameObject> enemiesAlive = new List<GameObject>();
+    private int destroyedEnemyCount = 0;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        SpawnEnemies();
+        StartCoroutine(SpawnEnemies());
     }
 
-    void SpawnEnemies()
+    IEnumerator SpawnEnemies()
     {
         for (int i = 0; i < numberOfEnemies; i++)
         {
             Vector3 randomPosition = GetRandomPositionInRandomBox();
-            Instantiate(enemy, randomPosition, Quaternion.identity);
+            GameObject newEnemy = Instantiate(enemy, randomPosition, Quaternion.identity);
+
+            
+            enemiesAlive.Add(newEnemy);   //Adding the spawned enemy to the alive list
+
+            newEnemy.GetComponent<EnemyDestruction>().OnDestroyed += OnEnemyDestroyed;  //Linking the enemies destruction to the counting method
+            
+            yield return new WaitForSeconds(spawnDelay);
+           
         }
+    }
+
+    IEnumerator ResetEnemies()
+    {
+        //Destroy all remaining enemies
+        foreach (GameObject enemy in enemiesAlive)
+        {
+            Destroy(enemy);
+        }
+
+
+        enemiesAlive.Clear();
+        destroyedEnemyCount = 0; //Reset the destroyed enemy count
+
+        //Wait a bit before respawning
+        yield return new WaitForSeconds(newWaveDelay);
+
+        StartCoroutine(SpawnEnemies()); //Spawning enemies again :)
+
+    }
+
+    void OnEnemyDestroyed(GameObject enemy)
+    {
+        destroyedEnemyCount++;
+        enemiesAlive.Remove(enemy);   //Remove the enemy from the list
+
+        if (destroyedEnemyCount >= destroyThreshhold)
+        {
+            StartCoroutine(ResetEnemies());
+        }
+
     }
 
     Vector3 GetRandomPositionInRandomBox()
