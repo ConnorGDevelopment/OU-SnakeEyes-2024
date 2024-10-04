@@ -53,7 +53,7 @@ public class SpawningScript : MonoBehaviour
 
         //Wait a bit before respawning
         yield return new WaitForSeconds(newWaveDelay);
-
+        StopAllCoroutines();    //Making sure we don't spawn indefinitely  NOTE: IF WE HAVE ANY COROURTINES LATER THIS WILL BREAK THEM
         StartCoroutine(SpawnEnemies()); //Spawning enemies again :)
 
     }
