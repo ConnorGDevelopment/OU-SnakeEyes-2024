@@ -9,6 +9,7 @@ namespace Weapons
     {
         public void Awake()
         {
+            // Set Default Value, check if one present already
             Stats.Add(new(StatKey.Speed, floatValue: 60f));
         }
 
