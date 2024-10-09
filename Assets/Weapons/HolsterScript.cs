@@ -12,8 +12,10 @@ public class HolsterScript : MonoBehaviour
     public Transform HolsterRight;
     public BoxCollider GunCollider;
 
-
-
+    //Ideas for later:
+    //solution 1: whatever revolver initially spawns in each respective holster, give it a tag either left or right revolver
+    //Solution 2: 
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("GunDestroy"))
