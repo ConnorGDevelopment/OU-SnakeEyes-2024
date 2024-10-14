@@ -388,5 +388,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 1823286099060419912, guid: 6603b645600e074469d924deff64d4c7, type: 3}
-  GunData: {fileID: 11400000, guid: 932415630810c0f439fd07892bdfcab2, type: 2}
+  GunData: {fileID: 11400000, guid: 7136808aae00889418c3e9fbd6c865d6, type: 2}
   Firepoint: {fileID: 2884785736024238481}
