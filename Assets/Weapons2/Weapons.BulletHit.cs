@@ -10,8 +10,7 @@ namespace Weapons
         public float velocity = 20f; // Bullet velocity
         public float delayTime = 3f; // Optional delay to destroy the bullet after a certain time
 
-        private Rigidbody rb;
-
+        
         // Start is called before the first frame update
         void Start()
         {

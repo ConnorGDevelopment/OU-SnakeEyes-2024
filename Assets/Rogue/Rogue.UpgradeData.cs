@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,5 +14,9 @@ namespace Rogue
         public bool Unique;
 
         public List<Stat> Stats = new();
+
+        //public Stat Find(Rogue.StatKey key) {
+        //    return Stats.Find(stat => stat.Key == StatKey[key]);
+        //}
     }
 }
