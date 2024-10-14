@@ -36,7 +36,7 @@ public class ControllerTriggerFireLeft : MonoBehaviour
         }
 
 
-        if (InHand == true && Revolver.tag == "LeftHand")    //checking to see if the left gun is in the left hand
+        if (InHand == true && RevolverSocket.tag == "LeftHand")    //checking to see if the left gun is in the left hand
         {
             // Check left controller trigger value
             if (inputData._leftController.isValid)
@@ -59,7 +59,7 @@ public class ControllerTriggerFireLeft : MonoBehaviour
 
 
 
-        if (InHand == true && Revolver.tag == "RightHand")             //Checking to see if the right gun is in the hand
+        if (InHand == true && RevolverSocket.tag == "RightHand")             //Checking to see if the right gun is in the hand
         {
             if (inputData._rightController.isValid)     //Checking to see if the controller data is valid
             {
