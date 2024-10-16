@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - HandDetection
   - GunDestroy
+  - LeftHand
+  - RightHand
   layers:
   - Default
   - TransparentFX
