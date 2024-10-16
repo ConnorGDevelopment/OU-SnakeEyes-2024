@@ -13,6 +13,7 @@ namespace Weapons
         public Transform Firepoint;
         private Rogue.UpgradeManager _upgradeManager;
 
+
         public void Start()
         {
             if (BulletPrefab == null)
@@ -65,11 +66,13 @@ namespace Weapons
         {
             GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.transform.rotation);
 
-            if (bullet.TryGetComponent(out Rigidbody bulletRb))
+            if (bullet.TryGetComponent(out BulletHit bulletHit))
             {
-                bulletRb.velocity = Firepoint.forward * GunData.Stats.Find(stat => stat.Key == StatKey.Speed).FloatValue;
+                bulletHit.Init(GunData, Firepoint);
                 Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
-
+            }
+            else {
+                Debug.Log($"Bullet does not have BulletHit component");
             }
         }
     }

@@ -6,28 +6,26 @@ namespace Weapons
 {
     public class BulletHit : MonoBehaviour
     {
-        public Rogue.UpgradeData BulletData;
-        public float velocity = 20f; // Bullet velocity
+        public Rogue.UpgradeData RogueSnapshot;
+
         public float delayTime = 3f; // Optional delay to destroy the bullet after a certain time
 
+        public void Init(Rogue.UpgradeData rogueSnapshot, Transform firepoint) {
+            RogueSnapshot = rogueSnapshot;
+
+            if(!RogueSnapshot.StatExists(Rogue.StatKey.Speed))
+            {
+                Debug.Log($"Bullet initialized without Speed value");
+                return;
+            }
+
+            if (TryGetComponent(out Rigidbody rb)) {
+                rb.velocity = firepoint.forward * rogueSnapshot.FindStat(Rogue.StatKey.Speed).FloatValue;
+            } else
+            {
+                Debug.Log($"Bullet does not have RigidBody");
+            }
         
-        // Start is called before the first frame update
-        void Start()
-        {
-            if (TryGetComponent<Rigidbody>(out Rigidbody rb))
-            {
-
-                // Apply velocity in the forward direction of the bullet
-                rb.velocity = transform.forward * velocity;
-
-                // Destroy the bullet after a delay to avoid it lingering indefinitely
-                Destroy(gameObject, delayTime);
-            }
-            else
-            {
-                Debug.Log("Screeeeeeeeeech");
-            }
-
         }
 
         // This method is called when the bullet enters a trigger collider
