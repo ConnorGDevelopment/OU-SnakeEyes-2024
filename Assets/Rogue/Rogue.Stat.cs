@@ -40,7 +40,12 @@ namespace Rogue
 
             IntValue = value;
             FloatValue = floatValue;
+        }
 
+        public void CombineStat(Stat stat)
+        {
+            IntValue += stat.IntValue;
+            FloatValue += stat.FloatValue;
         }
     }
 }
