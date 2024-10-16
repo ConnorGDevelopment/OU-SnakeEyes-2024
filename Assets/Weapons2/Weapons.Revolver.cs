@@ -9,9 +9,10 @@ namespace Weapons
     public class Revolver : MonoBehaviour
     {
         public GameObject BulletPrefab;
-        public GunData GunData;
+        public Rogue.UpgradeData GunData;
         public Transform Firepoint;
         private Rogue.UpgradeManager _upgradeManager;
+
 
         public void Start()
         {
@@ -63,12 +64,15 @@ namespace Weapons
         // Function called when trigger pull
         private void FireBullet()
         {
-            Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
-            GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, BulletPrefab.transform.rotation);
+            GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.transform.rotation);
 
-            if (bullet.TryGetComponent(out Rigidbody bulletRb))
+            if (bullet.TryGetComponent(out BulletHit bulletHit))
             {
-                bulletRb.velocity = Firepoint.forward * GunData.Stats.Find(stat => stat.Key == StatKey.Speed).FloatValue;
+                bulletHit.Init(GunData, Firepoint);
+                Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
+            }
+            else {
+                Debug.Log($"Bullet does not have BulletHit component");
             }
         }
     }

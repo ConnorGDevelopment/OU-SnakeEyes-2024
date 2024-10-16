@@ -31,6 +31,150 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6341116289965390350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8051835055440150012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1981392919908142841}
+  - component: {fileID: 6831766112200354541}
+  - component: {fileID: 6038398336278974797}
+  m_Layer: 0
+  m_Name: RevolverHandle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1981392919908142841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8051835055440150012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.08782564, y: -0, z: -0, w: 0.99613595}
+  m_LocalPosition: {x: -0.016, y: 0.076, z: -0.451}
+  m_LocalScale: {x: 0.636966, y: 2.5966308, z: 3.3620691}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6341116289965390350}
+  m_LocalEulerAnglesHint: {x: 10.077, y: 0, z: 0}
+--- !u!65 &6831766112200354541
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8051835055440150012}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6038398336278974797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8051835055440150012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4253f32900bcc4d499d675566142ded0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 4294967295
+  m_AttachTransform: {fileID: 0}
+  m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
+  m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectActionTrigger: 2
+  m_HideControllerOnSelect: 0
+  m_AllowHoveredActivate: 0
+  m_TargetPriorityMode: 0
+  m_PlayAudioClipOnSelectEntered: 0
+  m_AudioClipForOnSelectEntered: {fileID: 0}
+  m_PlayAudioClipOnSelectExited: 0
+  m_AudioClipForOnSelectExited: {fileID: 0}
+  m_PlayAudioClipOnSelectCanceled: 0
+  m_AudioClipForOnSelectCanceled: {fileID: 0}
+  m_PlayAudioClipOnHoverEntered: 0
+  m_AudioClipForOnHoverEntered: {fileID: 0}
+  m_PlayAudioClipOnHoverExited: 0
+  m_AudioClipForOnHoverExited: {fileID: 0}
+  m_PlayAudioClipOnHoverCanceled: 0
+  m_AudioClipForOnHoverCanceled: {fileID: 0}
+  m_AllowHoverAudioWhileSelecting: 1
+  m_PlayHapticsOnSelectEntered: 0
+  m_HapticSelectEnterIntensity: 0
+  m_HapticSelectEnterDuration: 0
+  m_PlayHapticsOnSelectExited: 0
+  m_HapticSelectExitIntensity: 0
+  m_HapticSelectExitDuration: 0
+  m_PlayHapticsOnSelectCanceled: 0
+  m_HapticSelectCancelIntensity: 0
+  m_HapticSelectCancelDuration: 0
+  m_PlayHapticsOnHoverEntered: 0
+  m_HapticHoverEnterIntensity: 0
+  m_HapticHoverEnterDuration: 0
+  m_PlayHapticsOnHoverExited: 0
+  m_HapticHoverExitIntensity: 0
+  m_HapticHoverExitDuration: 0
+  m_PlayHapticsOnHoverCanceled: 0
+  m_HapticHoverCancelIntensity: 0
+  m_HapticHoverCancelDuration: 0
+  m_AllowHoverHapticsWhileSelecting: 1
+  m_ImproveAccuracyWithSphereCollider: 0
+  m_PhysicsLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_PhysicsTriggerInteraction: 1
 --- !u!1001 &6884476429156294117
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,7 +273,10 @@ PrefabInstance:
       addedObject: {fileID: -976626148634707845}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4df3ce82db8e66645afd54ab1d5b0262, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2646276519435733474}
+      addedObject: {fileID: 6622940349666846161}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4df3ce82db8e66645afd54ab1d5b0262, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3836458841177119423}
   m_SourcePrefab: {fileID: 100100000, guid: 4df3ce82db8e66645afd54ab1d5b0262, type: 3}
 --- !u!1 &6002166939582210228 stripped
 GameObject:
@@ -664,7 +811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740ce796dce03b44d850bb9ed2a93b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2646276519435733474
+--- !u!114 &6622940349666846161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -678,73 +825,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Revolver: {fileID: 6002166939582210228}
   RevolverSocket: {fileID: 0}
-  BulletPrefab: {fileID: 0}
+  RevolverHand: {fileID: 0}
+  BulletPrefab: {fileID: 1823286099060419912, guid: 6603b645600e074469d924deff64d4c7, type: 3}
   Firepoint: {fileID: 7018480765476519882}
   GunDetect: 0.5
+--- !u!114 &-3836458841177119423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002166939582210228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe4ff7e902eecf44ae400911b0624fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Revolver: {fileID: 6002166939582210228}
+  HolsterLeft: {fileID: 0}
+  HolsterRight: {fileID: 0}
+  GunCollider: {fileID: 0}
 --- !u!4 &6341116289965390350 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4df3ce82db8e66645afd54ab1d5b0262, type: 3}
   m_PrefabInstance: {fileID: 6884476429156294117}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8529849983641165214
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6341116289965390350}
-    m_Modifications:
-    - target: {fileID: 1863856993534582882, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_Name
-      value: RevolverHandle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.016
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.076
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.451
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99613595
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.08782564
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 10.077
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
---- !u!4 &1981392919908142841 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7863090340827550567, guid: 2486bf08eb224ce4eae13480d58aab7d, type: 3}
-  m_PrefabInstance: {fileID: 8529849983641165214}
   m_PrefabAsset: {fileID: 0}

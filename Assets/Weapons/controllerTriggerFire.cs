@@ -1,99 +1,91 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
 
-public class ControllerTriggerFireLeft : MonoBehaviour
+public class ControllerTriggerFire : MonoBehaviour
 {
     private ControllerInputs inputData;
     public GameObject Revolver;
-    public GameObject RevolverSocket; //The object that detects if the gun is in hand
     public GameObject BulletPrefab;
     public Transform Firepoint;
-    public float GunDetect = 0.5f;      // Variable for the range detection of the gun being in hand
-    private bool InHand;     //Initializing the value to false, can't start the game with gun in hand :(
-    private bool _leftTriggerPressed = false;
-    private bool _rightTriggerPressed = false;
+    
+
+    private bool InHand = false;
+    private bool triggerPressed = false;
+    private InputDevice activeController;  // Tracks which controller is holding the gun
 
     void Start()
     {
-        inputData = GetComponent<ControllerInputs>();    //Getting the data inputs from the controller
-        InHand = false;        //setting the InHand to false which means the gun doesn't start in the hand
+        inputData = GetComponent<ControllerInputs>();    // Getting the controller input data
+        InHand = false;  // Ensure gun starts out of hand
     }
 
     void Update()
     {
-
-
-        if (Vector3.Distance(Revolver.transform.position, RevolverSocket.transform.position) <= GunDetect)  //Checking to see if the gun is in the collider
+        // If the gun is in hand, check which controller is holding it and handle firing logic
+        if (InHand && activeController != null && activeController.isValid)
         {
-            InHand = true;
+            if (activeController.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
+            {
+                if (triggerValue > 0.1f && !triggerPressed)
+                {
+                    triggerPressed = true;
+                    FireBullet();
+                }
+                else if (triggerValue <= 0.1f && triggerPressed)
+                {
+                    triggerPressed = false;
+                    Debug.Log("Trigger Released");
+                }
+            }
         }
         else
         {
-            InHand = false;
+            // If not in hand, reset trigger press state to avoid accidental fire
+            triggerPressed = false;
         }
-
-
-        if (InHand == true && RevolverSocket.tag == "LeftHand")    //checking to see if the left gun is in the left hand
-        {
-            // Check left controller trigger value
-            if (inputData._leftController.isValid)
-            {
-                if (inputData._leftController.TryGetFeatureValue(CommonUsages.trigger, out float leftTriggerValue))
-                {
-                    if (leftTriggerValue > 0.1f && !_leftTriggerPressed)
-                    {
-                        _leftTriggerPressed = true;
-                        FireBullet();
-                    }
-                    else if (leftTriggerValue <= 0.1f && _leftTriggerPressed)
-                    {
-                        _leftTriggerPressed = false;
-                        Debug.Log("Left Trigger Released");
-                    }
-                }
-            }
-        }
-
-
-
-        if (InHand == true && RevolverSocket.tag == "RightHand")             //Checking to see if the right gun is in the hand
-        {
-            if (inputData._rightController.isValid)     //Checking to see if the controller data is valid
-            {
-                if (inputData._rightController.TryGetFeatureValue(CommonUsages.trigger, out float rightTriggerValue))  //Checking for data values
-                {
-                    if (rightTriggerValue > 0.1f && !_rightTriggerPressed)          //Taking trigger values and checking values to see if the trigger is pressed or not
-                    {
-                        _rightTriggerPressed = true;
-                        FireBullet();
-                    }
-                    else if (rightTriggerValue <= 0.1f && _rightTriggerPressed)
-                    {
-                        _rightTriggerPressed = false;
-                        Debug.Log("Right Trigger Released");
-                    }
-                }
-            }
-        }
-    
-
-
-}
+    }
 
     private void FireBullet()
     {
-
+        // Instantiate the bullet prefab at the fire point with the correct orientation
         GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.rotation);
-
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
         if (bulletRb != null)
         {
-            bulletRb.velocity = Firepoint.forward * 60f;
+            bulletRb.velocity = Firepoint.forward * 60f;  // Apply force to the bullet
         }
 
+        Debug.Log("Bullet Fired!");
+    }
 
+    // Detect when the revolver enters the collider for the hand (i.e., gun is picked up)
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("LeftHand"))
+        {
+            activeController = inputData._leftController;
+            InHand = true;
+            Debug.Log("Revolver picked up by Left Hand");
+        }
+        else if (other.CompareTag("RightHand"))
+        {
+            activeController = inputData._rightController;
+            InHand = true;
+            Debug.Log("Revolver picked up by Right Hand");
+        }
+    }
+
+    // Detect when the revolver exits the collider for the hand (i.e., gun is dropped)
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
+        {
+            InHand = false;
+            activeController = new InputDevice();  // Clear active controller when gun is no longer in hand
+            Debug.Log("Revolver dropped");
+        }
     }
 }

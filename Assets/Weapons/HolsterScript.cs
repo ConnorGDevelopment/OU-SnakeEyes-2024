@@ -20,9 +20,9 @@ public class HolsterScript : MonoBehaviour
     {
         if (other.CompareTag("GunDestroy"))
         {
-            if (Revolver.tag == "LeftRevolver")
+            if (Revolver.tag == "LeftHand")
             {
-                GameObject OriginalRevolver = GameObject.FindWithTag("LeftRevolver");
+                GameObject OriginalRevolver = GameObject.FindWithTag("LeftHand");
 
                 Destroy(OriginalRevolver);
 
@@ -33,9 +33,9 @@ public class HolsterScript : MonoBehaviour
 
 
 
-            if (Revolver.tag == "RightRevolver")
+            if (Revolver.tag == "RightHand")
             {
-                GameObject OriginalRevolver = GameObject.FindWithTag("RightRevolver");
+                GameObject OriginalRevolver = GameObject.FindWithTag("RightHand");
                 
                 Destroy(OriginalRevolver);
 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1111931833660011387
+--- !u!1 &3680840404460149919
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 529568872874332277}
-  - component: {fileID: 5295294682296870719}
+  - component: {fileID: 6314843822428017317}
+  - component: {fileID: 3144268701663816246}
   m_Layer: 0
   m_Name: GunDestroyer
-  m_TagString: Untagged
+  m_TagString: GunDestroy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &529568872874332277
+--- !u!4 &6314843822428017317
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111931833660011387}
+  m_GameObject: {fileID: 3680840404460149919}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.89499784, y: 0.8829675, z: 6.342949}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.79, y: 0.05, z: 5.46}
+  m_LocalScale: {x: 20.463602, y: 0.30110273, z: 16.412289}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5295294682296870719
+--- !u!65 &3144268701663816246
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111931833660011387}
+  m_GameObject: {fileID: 3680840404460149919}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -51,5 +51,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 13.750419, y: 0.11899406, z: 16.609783}
-  m_Center: {x: 0.05397749, y: -0.44050297, z: 1.0961237}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

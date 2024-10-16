@@ -9,8 +9,7 @@ namespace Rogue
         None,
         Damage,
         Speed,
-        Projectiles,
-        Spread
+        FireRate,
     }
     // This is just an key/pair obj so you can check in lists what a Stat is, has some mojo for accepting a string instead of key
     [System.Serializable]
@@ -41,7 +40,12 @@ namespace Rogue
 
             IntValue = value;
             FloatValue = floatValue;
+        }
 
+        public void CombineStat(Stat stat)
+        {
+            IntValue += stat.IntValue;
+            FloatValue += stat.FloatValue;
         }
     }
 }
