@@ -10,6 +10,7 @@ public class SpawningScript : MonoBehaviour
     public float spawnDelay = 0.5f;      //spawning enemies over time
     public int destroyThreshhold = 15;   //Looking at how many enemies need to be destroyed in order to start a new wave
     public float newWaveDelay = 10;     //The delay before a new wave spawns, will change later once upgrades are in place
+    public bool upgradeChosen = false;  //Value to decide if the upgrade interactable has been chosen
 
     private List<GameObject> enemiesAlive = new List<GameObject>();
     private int destroyedEnemyCount = 0;
@@ -41,6 +42,12 @@ public class SpawningScript : MonoBehaviour
 
     IEnumerator ResetEnemies()
     {
+        
+        //add if and else statement here asking if the upgrade interactable has touched the hand, if it did run the rest of the code if not pass until true
+
+
+
+
         //Destroy all remaining enemies
         foreach (GameObject enemy in enemiesAlive)
         {
@@ -54,7 +61,16 @@ public class SpawningScript : MonoBehaviour
         //Wait a bit before respawning
         yield return new WaitForSeconds(newWaveDelay);
         StopAllCoroutines();    //Making sure we don't spawn indefinitely  NOTE: IF WE HAVE ANY COROURTINES LATER THIS WILL BREAK THEM
-        StartCoroutine(SpawnEnemies()); //Spawning enemies again :)
+
+        if(upgradeChosen == true)
+        {
+            StartCoroutine(SpawnEnemies()); //Spawning enemies again :)
+
+        }
+        else
+        {
+            upgradeChosen = false;
+        }
 
     }
 
