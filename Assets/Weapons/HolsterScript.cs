@@ -5,44 +5,54 @@ using UnityEngine;
 
 public class HolsterScript : MonoBehaviour
 {
-
-
-    public GameObject Revolver;
+    public GameObject RevolverPrefab;  // Prefab for instantiating the revolver
     public Transform HolsterLeft;
     public Transform HolsterRight;
-    public BoxCollider GunCollider;
+    public bool RightHandSpawn = false;
+    public bool LeftHandSpawn = false;
 
-    //Ideas for later:
-    //solution 1: whatever revolver initially spawns in each respective holster, give it a tag either left or right revolver
-    //Solution 2: 
-    
+    private GameObject rightHandRevolver;  // Reference to the revolver currently in right hand
+    private GameObject leftHandRevolver;   // Reference to the revolver currently in left hand
+
+    private void Update()
+    {
+        if (RightHandSpawn)
+        {
+            if (rightHandRevolver != null)
+            {
+                Destroy(rightHandRevolver);
+            }
+
+            rightHandRevolver = Instantiate(RevolverPrefab, HolsterRight.position, HolsterRight.rotation);
+            rightHandRevolver.tag = "RightHand";  // Ensure correct tag is assigned
+            RightHandSpawn = false;
+        }
+
+        if (LeftHandSpawn)
+        {
+            if (leftHandRevolver != null)
+            {
+                Destroy(leftHandRevolver);
+            }
+
+            leftHandRevolver = Instantiate(RevolverPrefab, HolsterLeft.position, HolsterLeft.rotation);
+            leftHandRevolver.tag = "LeftHand";  // Ensure correct tag is assigned
+            LeftHandSpawn = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("GunDestroy"))
         {
-            if (Revolver.tag == "LeftHand")
+            if (other.gameObject.CompareTag("LeftHand"))
             {
-                GameObject OriginalRevolver = GameObject.FindWithTag("LeftHand");
-
-                Destroy(OriginalRevolver);
-
-                Instantiate(Revolver, HolsterLeft.position, HolsterLeft.rotation);
-
+                LeftHandSpawn = true;
             }
-
-
-
-
-            if (Revolver.tag == "RightHand")
+            else if (other.gameObject.CompareTag("RightHand"))
             {
-                GameObject OriginalRevolver = GameObject.FindWithTag("RightHand");
-                
-                Destroy(OriginalRevolver);
-
-                Instantiate(Revolver, HolsterRight.position, HolsterRight.rotation);
+                RightHandSpawn = true;
             }
         }
     }
-
-
 }
