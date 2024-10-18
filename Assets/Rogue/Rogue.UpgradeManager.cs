@@ -7,52 +7,25 @@ namespace Rogue
     {
         public List<UpgradeData> Upgrades = new();
 
-        public List<Stat> Summary
+        public UpgradeData Summary
         {
             get
             {
-                // Create a blank Dictionary so we can assign stats w/o duplicating keys
-                Dictionary<StatKey, Stat> summaryDict = new();
-
-                // Start new list of upgrades to do some filtering
                 List<UpgradeData> validUpgrades = new();
 
-                foreach (var upgrade in Upgrades)
-                {
-                    // If upgrade IS unique and there is not a copy added already
-                    // If upgrade is not unique
-                    if ((upgrade.Unique && !validUpgrades.Contains(upgrade)) || !upgrade.Unique)
+                Upgrades.ForEach(upgrade => { 
+                    if(!upgrade.Unique || (upgrade.Unique && !validUpgrades.Exists(match => match.Name == upgrade.Name)))
                     {
                         validUpgrades.Add(upgrade);
-                    }
-                }
+                    } 
+                });
+
+                UpgradeData summary = new();
 
                 // Go through each upgrade in filtered list of upgrades
                 foreach (var validUpgrade in validUpgrades)
                 {
-                    // Go through each stat
-                    foreach (var stat in validUpgrade.Stats)
-                    {
-                        // If stat exists, increment by value, otherwise add the stat and value
-                        if (summaryDict.ContainsKey(stat.Key))
-                        {
-                            summaryDict[stat.Key].IntValue += stat.IntValue;
-                            summaryDict[stat.Key].FloatValue += stat.FloatValue;
-                        }
-                        else
-                        {
-                            summaryDict.Add(stat.Key, stat);
-                        }
-
-                    }
-                }
-
-                // Convert dict into list and ship
-                List<Stat> summary = new();
-
-                foreach (var stat in summaryDict)
-                {
-                    summary.Add(stat.Value);
+                    summary.CombineUpgrades(validUpgrade);
                 }
 
                 return summary;
