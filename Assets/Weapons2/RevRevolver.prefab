@@ -403,9 +403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe4ff7e902eecf44ae400911b0624fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Revolver: {fileID: 6748961492001946247}
-  HolsterLeft: {fileID: 0}
-  HolsterRight: {fileID: 0}
-  GunCollider: {fileID: 0}
+  RevolverPrefab: {fileID: 6748961492001946247}
+  HolsterLeft: {fileID: 5283261136836337130, guid: ad5accefcc1196b4d88fdb169c91f0aa, type: 3}
+  HolsterRight: {fileID: 2283074638047334616, guid: 85d17c794bee85148ac1fd249d7e3b5f, type: 3}
   RightHandSpawn: 0
   LeftHandSpawn: 0
