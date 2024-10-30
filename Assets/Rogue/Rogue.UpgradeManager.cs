@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Rogue
@@ -7,58 +8,73 @@ namespace Rogue
     {
         public List<UpgradeData> Upgrades = new();
 
-        public List<Stat> Summary
-        {
-            get
-            {
-                // Create a blank Dictionary so we can assign stats w/o duplicating keys
-                Dictionary<StatKey, Stat> summaryDict = new();
+        //public List<Stat> Summary
+        //{
+        //    get
+        //    {
+        //        // Create a blank Dictionary so we can assign stats w/o duplicating keys
+        //        Dictionary<StatKey, Stat> summaryDict = new();
 
-                // Start new list of upgrades to do some filtering
-                List<UpgradeData> validUpgrades = new();
+        //        // Start new list of upgrades to do some filtering
+        //        List<UpgradeData> validUpgrades = new();
+
+        //        foreach (var upgrade in Upgrades)
+        //        {
+        //            // If upgrade IS unique and there is not a copy added already
+        //            // If upgrade is not unique
+        //            if ((upgrade.Unique && !validUpgrades.Contains(upgrade)) || !upgrade.Unique)
+        //            {
+        //                validUpgrades.Add(upgrade);
+        //            }
+        //        }
+
+        //        // Go through each upgrade in filtered list of upgrades
+        //        foreach (var validUpgrade in validUpgrades)
+        //        {
+        //            // Go through each stat
+        //            foreach (var stat in validUpgrade.Stats)
+        //            {
+        //                // If stat exists, increment by value, otherwise add the stat and value
+        //                if (summaryDict.ContainsKey(stat.Key))
+        //                {
+        //                    summaryDict[stat.Key].IntValue += stat.IntValue;
+        //                    summaryDict[stat.Key].FloatValue += stat.FloatValue;
+        //                }
+        //                else
+        //                {
+        //                    summaryDict.Add(stat.Key, stat);
+        //                }
+
+        //            }
+        //        }
+
+        //        // Convert dict into list and ship
+        //        List<Stat> summary = new();
+
+        //        foreach (var stat in summaryDict)
+        //        {
+        //            summary.Add(stat.Value);
+        //        }
+
+        //        return summary;
+        //    }
+        //}
+
+        public Rogue.UpgradeData Summary {
+            get {
+                Rogue.UpgradeData summary = ScriptableObject.CreateInstance<Rogue.UpgradeData>();
 
                 foreach (var upgrade in Upgrades)
                 {
-                    // If upgrade IS unique and there is not a copy added already
-                    // If upgrade is not unique
-                    if ((upgrade.Unique && !validUpgrades.Contains(upgrade)) || !upgrade.Unique)
-                    {
-                        validUpgrades.Add(upgrade);
+                    if (upgrade.Unique) { 
+                    } else { 
+                        summary.CombineUpgrades(upgrade);
                     }
-                }
-
-                // Go through each upgrade in filtered list of upgrades
-                foreach (var validUpgrade in validUpgrades)
-                {
-                    // Go through each stat
-                    foreach (var stat in validUpgrade.Stats)
-                    {
-                        // If stat exists, increment by value, otherwise add the stat and value
-                        if (summaryDict.ContainsKey(stat.Key))
-                        {
-                            summaryDict[stat.Key].IntValue += stat.IntValue;
-                            summaryDict[stat.Key].FloatValue += stat.FloatValue;
-                        }
-                        else
-                        {
-                            summaryDict.Add(stat.Key, stat);
-                        }
-
-                    }
-                }
-
-                // Convert dict into list and ship
-                List<Stat> summary = new();
-
-                foreach (var stat in summaryDict)
-                {
-                    summary.Add(stat.Value);
                 }
 
                 return summary;
             }
         }
-
         public static UpgradeManager FindLive(GameObject gameObject)
         {
             if (GameObject.FindWithTag("LiveRogueUpgradeManager").TryGetComponent(out UpgradeManager upgradeManager))
