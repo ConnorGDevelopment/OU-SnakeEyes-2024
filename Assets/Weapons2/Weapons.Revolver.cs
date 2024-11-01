@@ -49,7 +49,6 @@ namespace Weapons
                 triggerHandler.OnTriggerPull.AddListener(FireBullet);
             }
             Debug.Log($"Revolver Grabbed by: {ctx.interactorObject}");
-
         }
         public void OnRelease(SelectExitEventArgs ctx)
         {
@@ -57,6 +56,11 @@ namespace Weapons
             {
                 triggerHandler.OnTriggerPull.RemoveAllListeners();
             }
+
+            if (gameObject.TryGetComponent(out Rigidbody rb)) {
+                rb.useGravity = true;
+            }
+
             Debug.Log($"Revolver Released by: {ctx.interactorObject}");
 
         }
