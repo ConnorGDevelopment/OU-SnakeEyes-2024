@@ -57,6 +57,9 @@ namespace Weapons
             {
                 triggerHandler.OnTriggerPull.RemoveAllListeners();
             }
+            if (gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb)) { 
+                rb.useGravity = true;
+            }
             Debug.Log($"Revolver Released by: {ctx.interactorObject}");
 
         }
