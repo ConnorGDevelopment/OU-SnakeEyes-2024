@@ -64,7 +64,7 @@ public class SpawningScript : MonoBehaviour
 
         StartCoroutine(SpawnEnemies());
 
-        //if(upgradeChosen == true)
+        //if (upgradeChosen == true)
         //{
         //    StartCoroutine(SpawnEnemies()); //Spawning enemies again :)
 
