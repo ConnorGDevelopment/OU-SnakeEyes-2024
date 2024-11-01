@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 800730583745825977}
   - component: {fileID: 1785351320552707060}
   - component: {fileID: -2150935759002301606}
+  - component: {fileID: -8564348349305172419}
   m_Layer: 0
   m_Name: RevRevolver
   m_TagString: Untagged
@@ -406,3 +407,16 @@ MonoBehaviour:
   leftHolster: {fileID: 6578135707263193688, guid: ad5accefcc1196b4d88fdb169c91f0aa, type: 3}
   rightHolster: {fileID: 7114974910510595410, guid: 85d17c794bee85148ac1fd249d7e3b5f, type: 3}
   revolverPrefab: {fileID: 6748961492001946247}
+--- !u!114 &-8564348349305172419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748961492001946247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cdc19d20a502e647b0655a408ee32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HolsterScript: {fileID: -2150935759002301606}

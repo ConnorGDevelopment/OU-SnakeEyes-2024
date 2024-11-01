@@ -62,15 +62,17 @@ public class SpawningScript : MonoBehaviour
         yield return new WaitForSeconds(newWaveDelay);
         StopAllCoroutines();    //Making sure we don't spawn indefinitely  NOTE: IF WE HAVE ANY COROURTINES LATER THIS WILL BREAK THEM
 
-        if(upgradeChosen == true)
-        {
-            StartCoroutine(SpawnEnemies()); //Spawning enemies again :)
+        StartCoroutine(SpawnEnemies());
 
-        }
-        else
-        {
-            upgradeChosen = false;
-        }
+        //if (upgradeChosen == true)
+        //{
+        //    StartCoroutine(SpawnEnemies()); //Spawning enemies again :)
+
+        //}
+        //else
+        //{
+        //    upgradeChosen = false;
+        //}
 
     }
 
