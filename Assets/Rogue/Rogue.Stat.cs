@@ -26,6 +26,7 @@ namespace Rogue
             IntValue = value;
             FloatValue = floatValue;
         }
+
         public Stat(string key, int value = 0, float floatValue = 0)
         {
             if (Enum.TryParse(key, true, out StatKey validKey))

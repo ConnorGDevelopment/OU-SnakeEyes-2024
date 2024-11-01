@@ -16,7 +16,7 @@ namespace Rogue
 
         public List<Stat> Stats = new();
 
-        public Stat FindStat(StatKey key)
+        public Stat FindStat(Rogue.StatKey key)
         {
             return Stats.Find(match => match.Key == key);
         }
@@ -24,7 +24,7 @@ namespace Rogue
             return Stats.Find(match => match.Key == stat.Key);
         }
 
-        public bool StatExists(StatKey key)
+        public bool StatExists(Rogue.StatKey key)
         {
             return Stats.Exists(match => match.Key == key);
         }
@@ -35,13 +35,7 @@ namespace Rogue
         public void CombineUpgrades(UpgradeData upgrade) {
             foreach (var stat in upgrade.Stats.Where(stat => StatExists(stat)))
             {
-                if (FindStat(stat) != null)
-                {
-                    FindStat(stat).CombineStat(stat);
-                }
-                else { 
-                    Stats.Add(stat);
-                }
+                FindStat(stat).CombineStat(stat);
             }
         }
     }
