@@ -64,15 +64,15 @@ public class SpawningScript : MonoBehaviour
 
         StartCoroutine(SpawnEnemies());
 
-        //if (upgradeChosen == true)
-        //{
-        //    StartCoroutine(SpawnEnemies()); //Spawning enemies again :)
+        if (upgradeChosen == true)
+        {
+            StartCoroutine(SpawnEnemies()); //Spawning enemies again :)
 
-        //}
-        //else
-        //{
-        //    upgradeChosen = false;
-        //}
+        }
+        else
+        {
+            upgradeChosen = false;
+        }
 
     }
 

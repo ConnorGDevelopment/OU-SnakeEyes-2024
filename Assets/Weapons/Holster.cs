@@ -1,4 +1,5 @@
 using UnityEngine;
+using Weapons;
 
 public class HolsterScript : MonoBehaviour
 {
@@ -6,17 +7,29 @@ public class HolsterScript : MonoBehaviour
     public GameObject rightHolster;        // Reference to the right holster
     public GameObject revolverPrefab;      // The prefab to instantiate
     private GameObject currentRevolver;    // The currently instantiated revolver
+    private Revolver bullet_count;
+    
 
     private void SpawnRevolver()
     {
         // Check which hand the revolver belongs to
         if (CompareTag("LeftHand"))
         {
+            bullet_count = GetComponent<Revolver>();
+
+            bullet_count.bulletCount = 6;
+
+            
+
             currentRevolver = Instantiate(revolverPrefab, leftHolster.transform.position, leftHolster.transform.rotation);
             Debug.Log("Spawned revolver in left holster.");
         }
         else if (CompareTag("RightHand"))
         {
+
+            bullet_count = GetComponent<Revolver>();
+
+            bullet_count.bulletCount = 6;
             currentRevolver = Instantiate(revolverPrefab, rightHolster.transform.position, rightHolster.transform.rotation);
             Debug.Log("Spawned revolver in right holster.");
         }

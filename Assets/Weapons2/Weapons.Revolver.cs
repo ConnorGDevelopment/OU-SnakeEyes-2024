@@ -12,6 +12,7 @@ namespace Weapons
         public Rogue.UpgradeData GunData;
         public Transform Firepoint;
         private Rogue.UpgradeManager _upgradeManager;
+        public int bulletCount = 6;
 
 
         public void Start()
@@ -67,16 +68,22 @@ namespace Weapons
         // Function called when trigger pull
         private void FireBullet()
         {
-            GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.transform.rotation);
-
-            if (bullet.TryGetComponent(out BulletHit bulletHit))
+            if (bulletCount > 0)
             {
-                bulletHit.Init(GunData, Firepoint);
-                Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
+                GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.transform.rotation);
+                bulletCount--;
+
+                if (bullet.TryGetComponent(out BulletHit bulletHit))
+                {
+                    bulletHit.Init(GunData, Firepoint);
+                    Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
+                }
+                else
+                {
+                    Debug.Log($"Bullet does not have BulletHit component");
+                }
             }
-            else {
-                Debug.Log($"Bullet does not have BulletHit component");
-            }
+           
         }
     }
 }

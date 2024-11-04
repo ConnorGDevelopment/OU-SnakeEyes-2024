@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3530796857922451017}
   - component: {fileID: 3540586429233094742}
-  - component: {fileID: 236098216433952885}
   m_Layer: 0
   m_Name: RevolverDetection
   m_TagString: LeftHand
@@ -54,16 +53,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &236098216433952885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353513705722732436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cdc19d20a502e647b0655a408ee32e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HolsterScript: {fileID: 0}
