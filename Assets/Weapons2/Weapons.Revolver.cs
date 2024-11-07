@@ -1,7 +1,6 @@
 using Rogue;
 using Unity.XR.CoreUtils;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Weapons
@@ -9,9 +8,9 @@ namespace Weapons
     public class Revolver : MonoBehaviour
     {
         public GameObject BulletPrefab;
-        public Rogue.UpgradeData GunData;
+        public UpgradeData GunData;
         public Transform Firepoint;
-        private Rogue.UpgradeManager _upgradeManager;
+        private UpgradeManager _upgradeManager;
         public int bulletCount = 6;
 
 
@@ -45,20 +44,22 @@ namespace Weapons
         // The Select Enter/Exit are triggered (only once) when grabbed or released
         public void OnGrab(SelectEnterEventArgs ctx)
         {
-            if (ctx.interactorObject.transform.gameObject.TryGetComponent<TriggerHandler>(out TriggerHandler triggerHandler))
+            if (ctx.interactorObject.transform.gameObject.TryGetComponent(out TriggerHandler triggerHandler))
             {
                 triggerHandler.OnTriggerPull.AddListener(FireBullet);
+                Debug.Log($"Event Listener attached to {triggerHandler} by {gameObject}");
             }
             Debug.Log($"Revolver Grabbed by: {ctx.interactorObject}");
 
         }
         public void OnRelease(SelectExitEventArgs ctx)
         {
-            if (ctx.interactorObject.transform.gameObject.TryGetComponent<TriggerHandler>(out TriggerHandler triggerHandler))
+            if (ctx.interactorObject.transform.gameObject.TryGetComponent(out TriggerHandler triggerHandler))
             {
                 triggerHandler.OnTriggerPull.RemoveAllListeners();
             }
-            if (gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb)) { 
+            if (gameObject.TryGetComponent(out Rigidbody rb))
+            {
                 rb.useGravity = true;
             }
             Debug.Log($"Revolver Released by: {ctx.interactorObject}");
@@ -66,12 +67,14 @@ namespace Weapons
         }
 
         // Function called when trigger pull
-        private void FireBullet()
+        public void FireBullet()
         {
             if (bulletCount > 0)
             {
                 GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.transform.rotation);
                 bulletCount--;
+                Debug.Log($"Bullet Count Updated to {bulletCount} by {gameObject}");
+
 
                 if (bullet.TryGetComponent(out BulletHit bulletHit))
                 {
@@ -83,7 +86,7 @@ namespace Weapons
                     Debug.Log($"Bullet does not have BulletHit component");
                 }
             }
-           
+
         }
     }
 }
