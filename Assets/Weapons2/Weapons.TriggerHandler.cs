@@ -9,8 +9,11 @@ namespace Weapons
         public UnityEvent OnTriggerPull;
 
         public void HandleTriggerPull(InputAction.CallbackContext ctx) {
-            Debug.Log($"HandleTriggerPull on {gameObject.name} called on {ctx.action.name}");
-            OnTriggerPull.Invoke(); 
+            if (ctx.ReadValueAsButton())
+            {
+                Debug.Log($"HandleTriggerPull on {gameObject.name} called on {ctx.action.name}");
+                OnTriggerPull.Invoke();
+            }
         }
     }
 }

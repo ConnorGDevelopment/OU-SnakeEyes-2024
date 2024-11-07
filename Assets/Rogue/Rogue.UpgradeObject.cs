@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.Events;
+
 
 namespace Rogue
 {
     public class UpgradeObject : MonoBehaviour
     {
         public UpgradeData Upgrade;
+
+        
 
         private UpgradeManager _upgradeManager;
 

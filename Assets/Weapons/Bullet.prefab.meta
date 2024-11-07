@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Weapons/RevolverDetection.prefab.meta
+guid: ac10edc03a0f4f64da63906c5f18acec
+========
 guid: 6603b645600e074469d924deff64d4c7
+>>>>>>>> rogue-system-weapons-1:Assets/Weapons/Bullet.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

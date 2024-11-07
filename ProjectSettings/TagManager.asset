@@ -10,6 +10,7 @@ TagManager:
   - GunDestroy
   - LeftHand
   - RightHand
+  - UpgradeInteractable
   layers:
   - Default
   - TransparentFX

@@ -12,6 +12,7 @@ namespace Weapons
         public Rogue.UpgradeData GunData;
         public Transform Firepoint;
         private Rogue.UpgradeManager _upgradeManager;
+        public int bulletCount = 6;
 
 
         public void Start()
@@ -49,6 +50,7 @@ namespace Weapons
                 triggerHandler.OnTriggerPull.AddListener(FireBullet);
             }
             Debug.Log($"Revolver Grabbed by: {ctx.interactorObject}");
+
         }
         public void OnRelease(SelectExitEventArgs ctx)
         {
@@ -56,11 +58,9 @@ namespace Weapons
             {
                 triggerHandler.OnTriggerPull.RemoveAllListeners();
             }
-
-            if (gameObject.TryGetComponent(out Rigidbody rb)) {
+            if (gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb)) { 
                 rb.useGravity = true;
             }
-
             Debug.Log($"Revolver Released by: {ctx.interactorObject}");
 
         }
@@ -68,16 +68,22 @@ namespace Weapons
         // Function called when trigger pull
         private void FireBullet()
         {
-            GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.transform.rotation);
-
-            if (bullet.TryGetComponent(out BulletHit bulletHit))
+            if (bulletCount > 0)
             {
-                bulletHit.Init(GunData, Firepoint);
-                Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
+                GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.transform.rotation);
+                bulletCount--;
+
+                if (bullet.TryGetComponent(out BulletHit bulletHit))
+                {
+                    bulletHit.Init(GunData, Firepoint);
+                    Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
+                }
+                else
+                {
+                    Debug.Log($"Bullet does not have BulletHit component");
+                }
             }
-            else {
-                Debug.Log($"Bullet does not have BulletHit component");
-            }
+           
         }
     }
 }
