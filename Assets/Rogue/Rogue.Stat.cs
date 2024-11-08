@@ -10,6 +10,7 @@ namespace Rogue
         Damage,
         Speed,
         FireRate,
+        AmmoCapacity
     }
     // This is just an key/pair obj so you can check in lists what a Stat is, has some mojo for accepting a string instead of key
     [System.Serializable]
