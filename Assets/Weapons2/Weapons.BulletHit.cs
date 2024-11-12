@@ -13,26 +13,26 @@ namespace Weapons
         public void Init(Rogue.UpgradeData rogueSnapshot, Transform firepoint) {
             RogueSnapshot = rogueSnapshot;
 
-            if (RogueSnapshot.StatExists(Rogue.StatKey.Speed))
+            if(!RogueSnapshot.StatExists(Rogue.StatKey.Speed))
             {
-                if (TryGetComponent(out Rigidbody rb))
-                {
-                    rb.velocity = firepoint.forward * rogueSnapshot.FindStat(Rogue.StatKey.Speed).FloatValue;
-                }
-                else
-                {
-                    Debug.Log($"Bullet does not have RigidBody");
-                }
-            } else { 
                 Debug.Log($"Bullet initialized without Speed value");
+                return;
             }
+
+            if (TryGetComponent(out Rigidbody rb)) {
+                rb.velocity = firepoint.forward * rogueSnapshot.FindStat(Rogue.StatKey.Speed).FloatValue;
+            } else
+            {
+                Debug.Log($"Bullet does not have RigidBody");
+            }
+        
         }
 
         // This method is called when the bullet enters a trigger collider
         private void OnTriggerEnter(Collider other)
         {
             // Check if the object is tagged as "Enemy"
-            if (other.TryGetComponent(out Enemy.Mob mob))
+            if (other.gameObject.CompareTag("Enemy"))
             {
                 // Destroy the enemy and the bullet
                 Destroy(other.gameObject); // Destroy the enemy the bullet hits

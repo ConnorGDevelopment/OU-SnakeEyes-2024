@@ -11,27 +11,8 @@ namespace Weapons
         public UpgradeData GunData;
         public Transform Firepoint;
         private UpgradeManager _upgradeManager;
-        // Common Backing Field usage, basically set guards to keep the AmmoCount within a certain range: 0 and the Max 
-        private int _currentAmmoCount;
-        public int CurrentAmmoCount { 
-            get { return _currentAmmoCount; }
-            set
-            {
-                // Don't set value to larger than AmmoCapacity
-                if (value > GunData.FindStat(StatKey.AmmoCapacity).IntValue)
-                {
-                    _currentAmmoCount = GunData.FindStat(StatKey.AmmoCapacity).IntValue;
-                }
-                // Don't set value to negative
-                else if (value < 0)
-                {
-                    _currentAmmoCount = 0;
-                }
-                else { 
-                    _currentAmmoCount = value;    
-                }
-            }
-        }
+        public int bulletCount = 6;
+
 
         public void Start()
         {
@@ -42,17 +23,7 @@ namespace Weapons
 
             if (GunData == null)
             {
-                Debug.Log("No default values, GunData not assigned an UpgradeData SO", gameObject);
-
-            }
-            else {
-                if (GunData.StatExists(StatKey.AmmoCapacity))
-                {
-                    _currentAmmoCount = GunData.FindStat(StatKey.AmmoCapacity).IntValue;
-                }
-                else {
-                    Debug.Log($"No AmmoCapacity stat in GunData: {GunData.Stats}", gameObject);
-                }
+                Debug.Log("No GunData ScriptableObject Assigned", gameObject);
             }
 
             // Grab Bullet Spawn from child
@@ -98,11 +69,11 @@ namespace Weapons
         // Function called when trigger pull
         public void FireBullet()
         {
-            if (CurrentAmmoCount > 0)
+            if (bulletCount > 0)
             {
                 GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.transform.rotation);
-                CurrentAmmoCount--; // This runs through the setter we wrote above
-                Debug.Log($"Bullet Count Updated to {CurrentAmmoCount} by {gameObject}");
+                bulletCount--;
+                Debug.Log($"Bullet Count Updated to {bulletCount} by {gameObject}");
 
 
                 if (bullet.TryGetComponent(out BulletHit bulletHit))
