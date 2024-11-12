@@ -1,14 +1,22 @@
 using UnityEngine;
 
-public class UpgradeCubePickup : MonoBehaviour
+public class HandDetectionRange : MonoBehaviour
 {
-    public SpawningScript spawningScript; // Reference to the SpawningScript
+    private HolsterScript holsterScript; // Reference to the HolsterScript
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.CompareTag("LeftHand") | other.CompareTag("RightHand")) //Looking at the tag of the hand detection
+        // Get the HolsterScript component on the same GameObject
+        holsterScript = GetComponent<HolsterScript>();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Check if the exiting object is the revolver
+        if (other.CompareTag("LeftHand") | other.CompareTag("RightHand"))
         {
-            spawningScript.OnUpgradePickedUp();
+            // Call the method to enable gravity on the revolver
+            holsterScript.EnableGravity();
         }
     }
 }
