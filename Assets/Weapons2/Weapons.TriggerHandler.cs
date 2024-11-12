@@ -10,10 +10,10 @@ namespace Weapons
 
         public void HandleTriggerPull(InputAction.CallbackContext ctx)
         {
-            //Debug.Log($"Input Ctx from {gameObject}: {ctx}");
+            Debug.Log($"Input Ctx from {gameObject}: {ctx}");
             if (ctx.ReadValueAsButton())
             {
-                //Debug.Log($"HandleTriggerPull on {gameObject.name} called on {ctx.action.name}");
+                Debug.Log($"HandleTriggerPull on {gameObject.name} called on {ctx.action.name}");
                 OnTriggerPull.Invoke();
             }
         }
