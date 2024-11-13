@@ -3,16 +3,27 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Weapons
+namespace Combat
 {
+    public interface IWeaponMemory
+    {
+        public Material Material { get; }
+        public Mesh Mesh { get; }
+        public UpgradeData UpgradeData { get; }
+    }
+
     public class Weapon : MonoBehaviour
     {
         // This should be a copy of the gun's prefab, prefab data disappear at runtime
         private GameObject _original;
+
+        
+
         public GameObject BulletPrefab;
         public UpgradeData BaseGunData;
         public Transform Firepoint;
         private UpgradeManager _upgradeManager;
+        private Combat.Manager _combatManager;
 
         private int _currentBulletCount;
         public int CurrentBulletCount

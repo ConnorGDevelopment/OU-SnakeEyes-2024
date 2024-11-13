@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-namespace Weapons
+namespace Combat
 {
     public class TriggerHandler : MonoBehaviour
     {

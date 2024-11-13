@@ -1,5 +1,5 @@
 using UnityEngine;
-using Weapons;
+using Combat;
 
 public class HolsterScript : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class HolsterScript : MonoBehaviour
     public GameObject rightHolster;        // Reference to the right holster
     public GameObject revolverPrefab;      // The prefab to instantiate
     private GameObject currentRevolver;    // The currently instantiated revolver
-    private Revolver bullet_count;  //Reference to the Revolver script
+    private Combat.Weapon bullet_count;  //Reference to the Revolver script
 
 
     private void SpawnRevolver()
@@ -15,7 +15,7 @@ public class HolsterScript : MonoBehaviour
         // Check which hand the revolver belongs to
         if (CompareTag("LeftHand")) //Checking left hand
         {
-            bullet_count = GetComponent<Revolver>();
+            bullet_count = GetComponent<Combat.Weapon>();
 
             bullet_count.bulletCount = 6;         //Resetting the bullet count of the revolvers back to 6 (temporary, will be later changed to a variable that references the scriptable object which holds the number of shots the player has)
 

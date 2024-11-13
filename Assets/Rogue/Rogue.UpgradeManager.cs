@@ -2,11 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Rogue
-{
+{   
+    
     public class UpgradeManager : MonoBehaviour
     {
-        public Dictionary<string, GameObject> WeaponMemory = new();
-
         public List<UpgradeData> Upgrades = new();
 
         public UpgradeData Summary
