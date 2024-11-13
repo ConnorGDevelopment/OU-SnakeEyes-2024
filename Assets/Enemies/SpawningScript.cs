@@ -9,7 +9,7 @@ public class SpawningScript : MonoBehaviour
     public int numberOfEnemies = 5;    // Number of enemies to spawn
     public float spawnDelay = 0.5f;    // Delay between spawns
     public int destroyThreshhold = 15; // Threshold for destroyed enemies
-    public float newWaveDelay = 10;    // Delay before a new wave spawns
+    public float newWaveDelay = 1000000000000;    // Delay before a new wave spawns
 
     private List<GameObject> enemiesAlive = new List<GameObject>();
     private int destroyedEnemyCount = 0;
