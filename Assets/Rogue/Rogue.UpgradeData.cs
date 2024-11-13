@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 namespace Rogue
 {
-  
+
 
     [CreateAssetMenu(menuName = "RogueUpgrade")]
     public class UpgradeData : ScriptableObject
@@ -20,7 +19,8 @@ namespace Rogue
         {
             return Stats.Find(match => match.Key == key);
         }
-        public Stat FindStat(Stat stat) { 
+        public Stat FindStat(Stat stat)
+        {
             return Stats.Find(match => match.Key == stat.Key);
         }
 
@@ -28,11 +28,13 @@ namespace Rogue
         {
             return Stats.Exists(match => match.Key == key);
         }
-        public bool StatExists(Stat stat) { 
+        public bool StatExists(Stat stat)
+        {
             return Stats.Exists(match => match.Key == stat.Key);
         }
 
-        public void CombineUpgrades(UpgradeData upgrade) {
+        public void CombineUpgrades(UpgradeData upgrade)
+        {
             foreach (var stat in upgrade.Stats.Where(stat => StatExists(stat)))
             {
                 FindStat(stat).CombineStat(stat);
