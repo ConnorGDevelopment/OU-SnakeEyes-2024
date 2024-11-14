@@ -1,29 +1,20 @@
-using Rogue;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Combat
 {
-    public interface IWeaponMemory
-    {
-        public Material Material { get; }
-        public Mesh Mesh { get; }
-        public UpgradeData UpgradeData { get; }
-    }
-
     public class Weapon : MonoBehaviour
     {
-        // This should be a copy of the gun's prefab, prefab data disappear at runtime
-        private GameObject _original;
-
-        
-
         public GameObject BulletPrefab;
-        public UpgradeData BaseGunData;
         public Transform Firepoint;
-        private UpgradeManager _upgradeManager;
-        private Combat.Manager _combatManager;
+
+        public Rogue.UpgradeData BaseGunData;
+        private string _interactorKey;
+
+
+        private Rogue.UpgradeManager _upgradeManager;
+        private Manager _combatManager;
 
         private int _currentBulletCount;
         public int CurrentBulletCount
@@ -31,9 +22,9 @@ namespace Combat
             get { return _currentBulletCount; }
             set
             {
-                if (value > BaseGunData.FindStat(StatKey.AmmoCapacity).IntValue)
+                if (value > BaseGunData.FindStat(Rogue.StatKey.AmmoCapacity).IntValue)
                 {
-                    _currentBulletCount = BaseGunData.FindStat(StatKey.AmmoCapacity).IntValue;
+                    _currentBulletCount = BaseGunData.FindStat(Rogue.StatKey.AmmoCapacity).IntValue;
                 }
                 else if (value < 0)
                 {
@@ -47,11 +38,11 @@ namespace Combat
         }
 
 
-        public UpgradeData GunData
+        public Rogue.UpgradeData GunData
         {
             get
             {
-                UpgradeData upgradeData = ScriptableObject.CreateInstance<UpgradeData>();
+                Rogue.UpgradeData upgradeData = ScriptableObject.CreateInstance<Rogue.UpgradeData>();
                 upgradeData.CombineUpgrades(BaseGunData);
                 upgradeData.CombineUpgrades(_upgradeManager.Summary);
                 return upgradeData;
@@ -60,9 +51,6 @@ namespace Combat
 
         public void Start()
         {
-            // Saving gameObject, which should be the prefab
-            _original = gameObject;
-
             if (BulletPrefab == null)
             {
                 Debug.Log("No Bullet Prefab Assigned", gameObject);
@@ -83,8 +71,16 @@ namespace Combat
                 Debug.Log("No Child named Firepoint", gameObject);
             }
 
+            _combatManager = Manager.FindLive(gameObject);
+            _upgradeManager = Rogue.UpgradeManager.FindLive(gameObject);
 
-            _upgradeManager = UpgradeManager.FindLive(gameObject);
+        }
+
+        public void Reload()
+        {
+
+            CurrentBulletCount = BaseGunData.FindStat(Rogue.StatKey.AmmoCapacity).IntValue;
+
         }
 
         // These functions are triggered by the Select Enter/Exit events on the XR Grab Interactable component
@@ -92,9 +88,11 @@ namespace Combat
         public void OnGrab(SelectEnterEventArgs ctx)
         {
             // Set the WeaponMemory for this interactorObject, which is one of the hands, to the original state of this object
-            _upgradeManager.WeaponMemory[ctx.interactorObject.ToString()] = _original;
-            Debug.Log($"{BaseGunData.Name} remembered for {ctx.interactorObject}");
-            if (ctx.interactorObject.transform.gameObject.TryGetComponent(out TriggerHandler triggerHandler))
+            _combatManager.RememberWeapon(ctx);
+
+            _interactorKey = ctx.interactorObject.transform.gameObject.name;
+
+            if (ctx.interactorObject.transform.gameObject.TryGetComponent(out ControllerEventHandler triggerHandler))
             {
                 triggerHandler.OnTriggerPull.AddListener(FireBullet);
                 Debug.Log($"Event Listener attached to {triggerHandler} by {gameObject}");
@@ -104,16 +102,23 @@ namespace Combat
         }
         public void OnRelease(SelectExitEventArgs ctx)
         {
-            if (ctx.interactorObject.transform.gameObject.TryGetComponent(out TriggerHandler triggerHandler))
+            if (ctx.interactorObject.transform.gameObject.TryGetComponent(out ControllerEventHandler triggerHandler))
             {
                 triggerHandler.OnTriggerPull.RemoveAllListeners();
             }
+
             if (gameObject.TryGetComponent(out Rigidbody rb))
             {
                 rb.useGravity = true;
             }
+
             Debug.Log($"Revolver Released by: {ctx.interactorObject}");
 
+        }
+
+        public void OnDestroy()
+        {
+            _combatManager.OnWeaponDestroyed.Invoke(_interactorKey);
         }
 
         // Function called when trigger pull

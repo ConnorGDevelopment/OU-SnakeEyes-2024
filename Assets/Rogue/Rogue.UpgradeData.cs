@@ -15,7 +15,7 @@ namespace Rogue
 
         public List<Stat> Stats = new();
 
-        public Stat FindStat(Rogue.StatKey key)
+        public Stat? FindStat(StatKey key)
         {
             return Stats.Find(match => match.Key == key);
         }
@@ -24,7 +24,7 @@ namespace Rogue
             return Stats.Find(match => match.Key == stat.Key);
         }
 
-        public bool StatExists(Rogue.StatKey key)
+        public bool StatExists(StatKey key)
         {
             return Stats.Exists(match => match.Key == key);
         }
