@@ -13,7 +13,7 @@ public class SpawningScript : MonoBehaviour
 
     private List<GameObject> enemiesAlive = new List<GameObject>();
     private int destroyedEnemyCount = 0;
-    private bool waveEnded = false;    // Tracks if the wave has ended
+    public bool waveEnded = false;    // Tracks if the wave has ended
     private bool upgradeChosen = false;
 
     void Start()
@@ -51,6 +51,7 @@ public class SpawningScript : MonoBehaviour
     {
         // Mark the wave as ended and clear the enemies
         waveEnded = true;
+        Debug.Log(waveEnded);
         destroyedEnemyCount = 0;
 
         // Destroy all remaining enemies
