@@ -69,35 +69,5 @@ public class HolsterScript : MonoBehaviour
         }
     }
 
-    // Method to handle dropping the revolver
-    //public void DropRevolver()
-    //{
-    //    if (currentRevolver = null)
-    //    {
-    //        // Detach from the player's hand
-    //        currentRevolver.transform.SetParent(null);
-
-    //        // Get the Rigidbody and re-enable gravity
-    //        Rigidbody rb = currentRevolver.GetComponent<Rigidbody>();
-    //        if (rb != null)
-    //        {
-    //            rb.useGravity = true; // Enable gravity when dropped
-    //            Debug.Log("Revolver dropped, gravity enabled.");
-    //        }
-    //    }
-    //}
-
-    // Method to turn off gravity when the revolver exits the detection range
-    //public void EnableGravity()
-    //{
-    //    if (currentRevolver != null)
-    //    {
-    //        Rigidbody rb = currentRevolver.GetComponent<Rigidbody>();
-    //        if (rb != null)
-    //        {
-    //            rb.useGravity = true; // Enable gravity when the revolver exits the range
-    //            Debug.Log("Revolver exited range, gravity enabled.");
-    //        }
-    //    }
-    //}
+    
 }

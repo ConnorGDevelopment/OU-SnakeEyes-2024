@@ -365,10 +365,18 @@ PrefabInstance:
       propertyPath: rightHolster
       value: 
       objectReference: {fileID: 1579221795}
+    - target: {fileID: 4504372464767871, guid: 28eec046696d73240b40019d1eab239a, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 800730583745825977, guid: 28eec046696d73240b40019d1eab239a, type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 290444523}
+    - target: {fileID: 1121411566406232962, guid: 28eec046696d73240b40019d1eab239a, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1785351320552707060, guid: 28eec046696d73240b40019d1eab239a, type: 3}
       propertyPath: RevolverShot
       value: 
@@ -1975,6 +1983,10 @@ PrefabInstance:
       propertyPath: rightHolster
       value: 
       objectReference: {fileID: 1579221795}
+    - target: {fileID: 4504372464767871, guid: 28eec046696d73240b40019d1eab239a, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 800730583745825977, guid: 28eec046696d73240b40019d1eab239a, type: 3}
       propertyPath: m_InteractionManager
       value: 
@@ -4802,11 +4814,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5283261136836337130, guid: ad5accefcc1196b4d88fdb169c91f0aa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.52
+      value: -0.589
       objectReference: {fileID: 0}
     - target: {fileID: 5283261136836337130, guid: ad5accefcc1196b4d88fdb169c91f0aa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.088
+      value: 0.771
       objectReference: {fileID: 0}
     - target: {fileID: 5283261136836337130, guid: ad5accefcc1196b4d88fdb169c91f0aa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4879,11 +4891,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2283074638047334616, guid: 85d17c794bee85148ac1fd249d7e3b5f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.674
+      value: 0.635
       objectReference: {fileID: 0}
     - target: {fileID: 2283074638047334616, guid: 85d17c794bee85148ac1fd249d7e3b5f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.015
+      value: 0.819
       objectReference: {fileID: 0}
     - target: {fileID: 2283074638047334616, guid: 85d17c794bee85148ac1fd249d7e3b5f, type: 3}
       propertyPath: m_LocalPosition.z
