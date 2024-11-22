@@ -7,7 +7,7 @@ public class HolsterScript : MonoBehaviour
     public GameObject rightHolster;        // Reference to the right holster
     public GameObject revolverPrefab;      // The prefab to instantiate
     private GameObject currentRevolver;    // The currently instantiated revolver
-    private Combat.Weapon bullet_count;  //Reference to the Revolver script
+    private Combat.Weapon weapon;  //Reference to the Revolver script
 
 
     private void SpawnRevolver()
@@ -15,9 +15,9 @@ public class HolsterScript : MonoBehaviour
         // Check which hand the revolver belongs to
         if (CompareTag("LeftHand")) //Checking left hand
         {
-            bullet_count = GetComponent<Combat.Weapon>();
+            weapon = GetComponent<Combat.Weapon>();
 
-            bullet_count.bulletCount = 6;         //Resetting the bullet count of the revolvers back to 6 (temporary, will be later changed to a variable that references the scriptable object which holds the number of shots the player has)
+            weapon.CurrentBulletCount = 6;         //Resetting the bullet count of the revolvers back to 6 (temporary, will be later changed to a variable that references the scriptable object which holds the number of shots the player has)
 
 
 
@@ -27,9 +27,9 @@ public class HolsterScript : MonoBehaviour
         else if (CompareTag("RightHand")) //Checking right hand
         {
 
-            bullet_count = GetComponent<Revolver>();
+            weapon = GetComponent<Combat.Weapon>();
 
-            bullet_count.bulletCount = 6;      //Resetting bullet count
+            weapon.CurrentBulletCount = 6;      //Resetting bullet count
 
 
             currentRevolver = Instantiate(revolverPrefab, rightHolster.transform.position, rightHolster.transform.rotation); //Creating the new revolver and setting it to the "current revolver" in play
