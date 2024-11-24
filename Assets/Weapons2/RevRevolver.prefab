@@ -392,7 +392,7 @@ MonoBehaviour:
   BulletPrefab: {fileID: 1823286099060419912, guid: 5eeccb3ca343bb4428d8ec71c0ad2c43, type: 3}
   GunData: {fileID: 11400000, guid: 7136808aae00889418c3e9fbd6c865d6, type: 2}
   Firepoint: {fileID: 2884785736024238481}
-  BangBang: 0
+  _revolverSound: {fileID: 8300000, guid: 1e03dfa35680ffa4db80e77df684c8d1, type: 3}
   bulletCount: 6
 --- !u!114 &-2150935759002301606
 MonoBehaviour:
@@ -409,6 +409,7 @@ MonoBehaviour:
   leftHolster: {fileID: 6578135707263193688, guid: ad5accefcc1196b4d88fdb169c91f0aa, type: 3}
   rightHolster: {fileID: 7114974910510595410, guid: 85d17c794bee85148ac1fd249d7e3b5f, type: 3}
   revolverPrefab: {fileID: 6748961492001946247}
+  GunDrop: {fileID: 8300000, guid: 0f701f5d5128ba54c8ecd3523c17454b, type: 3}
 --- !u!82 &-4798273157930603312
 AudioSource:
   m_ObjectHideFlags: 0
@@ -419,7 +420,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c0e9e0b8c50a6664092235e0eaee8e28, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

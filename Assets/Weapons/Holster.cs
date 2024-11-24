@@ -8,6 +8,16 @@ public class HolsterScript : MonoBehaviour
     public GameObject revolverPrefab;      // The prefab to instantiate
     private GameObject currentRevolver;    // The currently instantiated revolver
     private Revolver bullet_count;  //Reference to the Revolver script
+    public AudioClip GunDrop;       //Gun dropping sfx
+    private AudioSource _audioSource;  //reference to the audio source (question do I even need to keep setting it like this?)
+
+
+
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
 
     private void SpawnRevolver()
@@ -51,8 +61,12 @@ public class HolsterScript : MonoBehaviour
         {
             // Log destruction
             Debug.Log("GunDestroy triggered!");
-            SpawnRevolver();
-            Destroy(gameObject);
+
+            SpawnRevolver();     //Spawning revolvers before destroying the old ones, this keeps the data the exact same from the previous revolvers to prevent issues from occuring
+
+            _audioSource.PlayOneShot(GunDrop, 1f);   //Playing audio for the revolvers hitting the ground
+
+            Destroy(gameObject, GunDrop.length);   //Destroying the revolver with this script and touching the object with the tag GunDestroy.
         }
     }
 
