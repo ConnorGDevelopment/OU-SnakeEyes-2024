@@ -6,7 +6,24 @@ namespace Combat
     {
         public Rogue.StatDict RogueSnapshot;
 
-        public float delayTime = 3f; // Optional delay to destroy the bullet after a certain time
+        public float delayTime = 5f; // Optional delay to destroy the bullet after a certain time
+
+
+
+
+        private void Update()
+        {
+            delayTime -= Time.deltaTime;
+            
+
+
+            if(delayTime <= 0)
+            {
+                Destroy(gameObject);
+                
+            }
+
+        }
 
         public void Init(Rogue.StatDict rogueSnapshot, Transform firepoint)
         {
@@ -33,6 +50,13 @@ namespace Combat
                 Destroy(other.gameObject); // Destroy the enemy the bullet hits
                 Destroy(gameObject);       // Destroy the bullet
             }
+
+            if(other.gameObject.CompareTag("BulletDestroy"))
+            {
+                Destroy(gameObject);
+              
+            }
+
         }
     }
 }

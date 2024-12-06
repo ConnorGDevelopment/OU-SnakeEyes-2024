@@ -4,13 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - LiveRogueUpgradeManager
   - Enemy
   - HandDetection
   - GunDestroy
   - LeftHand
   - RightHand
   - UpgradeInteractable
-  - RogueUpgradeManager
+  - SoundManager
+  - BulletDestroy
+  - GameRestart
+  - Contract
+  - EnemyClose
   layers:
   - Default
   - TransparentFX
@@ -18,8 +23,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Enemy
+  - Table
   - 
   - 
   - 
