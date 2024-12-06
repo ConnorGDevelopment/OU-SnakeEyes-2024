@@ -344,17 +344,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e791caef-78d3-4f68-9104-212f73ac0642",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Manipulate Right",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b2c1b1cd-6ea7-45b6-b68f-17b3662b4d3a",
                     "path": "<Mouse>/delta",
                     "interactions": "",
@@ -449,6 +438,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Toggle Cursor Lock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3542472e-e883-407a-b967-5b879b2d7dc4",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Manipulate Head",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -564,12 +564,12 @@
                 },
                 {
                     "name": "",
-                    "id": "cea433d4-bac2-4c96-9180-2177fee9f266",
-                    "path": "<Mouse>/rightButton",
+                    "id": "e791caef-78d3-4f68-9104-212f73ac0642",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Manipulate Head",
+                    "action": "Manipulate Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

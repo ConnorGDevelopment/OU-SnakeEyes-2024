@@ -4,13 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - LiveRogueUpgradeManager
   - Enemy
   - HandDetection
   - GunDestroy
   - LeftHand
   - RightHand
   - UpgradeInteractable
+  - RogueUpgradeManager
   layers:
   - Default
   - TransparentFX

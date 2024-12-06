@@ -4,7 +4,7 @@ namespace Enemies
 {
     public class Enemy : MonoBehaviour
     {
-        public Rogue.UpgradeData EnemyData;
+        public Rogue.StatBlock EnemyData;
 
         public void Start()
         {

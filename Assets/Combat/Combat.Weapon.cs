@@ -4,49 +4,41 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Combat
 {
+
     public class Weapon : MonoBehaviour
     {
-        public GameObject BulletPrefab;
-        public Transform Firepoint;
-
-        public Rogue.UpgradeData BaseGunData;
-        private string _interactorKey;
-
-
+        // GameObject References
         private Rogue.UpgradeManager _upgradeManager;
-        private Manager _combatManager;
-
-        private int _currentBulletCount;
-        public int CurrentBulletCount
-        {
-            get { return _currentBulletCount; }
-            set
-            {
-                if (value > BaseGunData.FindStat(Rogue.StatKey.AmmoCapacity).IntValue)
-                {
-                    _currentBulletCount = BaseGunData.FindStat(Rogue.StatKey.AmmoCapacity).IntValue;
-                }
-                else if (value < 0)
-                {
-                    _currentBulletCount = 0;
-                }
-                else
-                {
-                    _currentBulletCount = value;
-                }
-            }
-        }
+        private Transform _bulletSpawn;
+        private Combat.ControllerEventHandler _controllerEventHandler;
+        public GameObject BulletPrefab;
 
 
-        public Rogue.UpgradeData GunData
+        // Rogue Stats
+        public Rogue.StatBlock BaseStats;
+
+        public Rogue.StatDict CurrentStats
         {
             get
             {
-                Rogue.UpgradeData upgradeData = ScriptableObject.CreateInstance<Rogue.UpgradeData>();
-                upgradeData.CombineUpgrades(BaseGunData);
-                upgradeData.CombineUpgrades(_upgradeManager.Summary);
-                return upgradeData;
+                return BaseStats.Stats + _upgradeManager.Sum;
             }
+        }
+
+        // Ammo
+        private int _currentAmmoCount;
+        public int CurrentAmmoCount
+        {
+            get { return _currentAmmoCount; }
+            set => _currentAmmoCount = value < 0
+                    ? 0
+                    : value > CurrentStats.GetInt(Rogue.StatKey.AmmoCapacity)
+                        ? CurrentStats.GetInt(Rogue.StatKey.AmmoCapacity)
+                        : value;
+        }
+        public void ReloadAmmo()
+        {
+            CurrentAmmoCount = CurrentStats.GetInt(Rogue.StatKey.AmmoCapacity);
         }
 
         public void Start()
@@ -56,90 +48,63 @@ namespace Combat
                 Debug.Log("No Bullet Prefab Assigned", gameObject);
             }
 
-            if (BaseGunData == null)
+            if (BaseStats == null)
             {
-                Debug.Log("No GunData ScriptableObject Assigned", gameObject);
+                Debug.Log("No BaseStats Assigned", gameObject);
             }
 
             // Grab Bullet Spawn from child
-            if (gameObject.GetNamedChild("Firepoint").TryGetComponent(out Transform firepoint))
+            if (gameObject.GetNamedChild("BulletSpawn").TryGetComponent(out Transform bulletSpawn))
             {
-                Firepoint = firepoint;
+                _bulletSpawn = bulletSpawn;
             }
             else
             {
-                Debug.Log("No Child named Firepoint", gameObject);
+                Debug.Log("No Child named BulletSpawn", gameObject);
             }
-
-            _combatManager = Manager.FindLive(gameObject);
-            _upgradeManager = Rogue.UpgradeManager.FindLive(gameObject);
-
-        }
-
-        public void Reload()
-        {
-
-            CurrentBulletCount = BaseGunData.FindStat(Rogue.StatKey.AmmoCapacity).IntValue;
+            _upgradeManager = Rogue.UpgradeManager.FindManager();
+            CurrentAmmoCount = CurrentStats.GetInt(Rogue.StatKey.AmmoCapacity);
 
         }
+
+
 
         // These functions are triggered by the Select Enter/Exit events on the XR Grab Interactable component
         // The Select Enter/Exit are triggered (only once) when grabbed or released
         public void OnGrab(SelectEnterEventArgs ctx)
         {
-            // Set the WeaponMemory for this interactorObject, which is one of the hands, to the original state of this object
-            _combatManager.RememberWeapon(ctx);
 
-            _interactorKey = ctx.interactorObject.transform.gameObject.name;
-
-            if (ctx.interactorObject.transform.gameObject.TryGetComponent(out ControllerEventHandler triggerHandler))
+            if (ctx.interactorObject.transform.parent.TryGetComponent(out ControllerEventHandler controllerEventHandler))
             {
-                triggerHandler.OnTriggerPull.AddListener(FireBullet);
-                Debug.Log($"Event Listener attached to {triggerHandler} by {gameObject}");
+                _controllerEventHandler = controllerEventHandler;
+                _controllerEventHandler.ImprintWeapon(gameObject);
+                _controllerEventHandler.OnActivate.AddListener(FireBullet);
             }
-            Debug.Log($"Revolver Grabbed by: {ctx.interactorObject}");
+
 
         }
         public void OnRelease(SelectExitEventArgs ctx)
         {
-            if (ctx.interactorObject.transform.gameObject.TryGetComponent(out ControllerEventHandler triggerHandler))
-            {
-                triggerHandler.OnTriggerPull.RemoveAllListeners();
-            }
-
-            if (gameObject.TryGetComponent(out Rigidbody rb))
-            {
-                rb.useGravity = true;
-            }
-
-            Debug.Log($"Revolver Released by: {ctx.interactorObject}");
-
+            _controllerEventHandler.OnActivate.RemoveAllListeners();
         }
 
         public void OnDestroy()
         {
-            _combatManager.OnWeaponDestroyed.Invoke(_interactorKey);
+            if (_controllerEventHandler)
+            {
+                _controllerEventHandler.WeaponDestroyed.Invoke();
+            }
         }
 
         // Function called when trigger pull
         public void FireBullet()
         {
-            if (CurrentBulletCount > 0)
+            if (CurrentAmmoCount > 0)
             {
-                GameObject bullet = Instantiate(BulletPrefab, Firepoint.position, Firepoint.transform.rotation);
-                CurrentBulletCount--;
-                Debug.Log($"Bullet Count Updated to {CurrentBulletCount} by {gameObject}");
-
-
-                if (bullet.TryGetComponent(out BulletHit bulletHit))
-                {
-                    bulletHit.Init(GunData, Firepoint);
-                    Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
-                }
-                else
-                {
-                    Debug.Log($"Bullet does not have BulletHit component");
-                }
+                GameObject bullet = Instantiate(BulletPrefab, _bulletSpawn.position, _bulletSpawn.transform.rotation);
+                CurrentAmmoCount--;
+                bullet.GetComponent<Combat.Bullet>().Init(_upgradeManager.Sum, _bulletSpawn);
+                Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
             }
 
         }

@@ -25,7 +25,7 @@ namespace Combat
             var match = _weaponPrefabs.Where(weaponPrefab =>
                         weaponPrefab.GetComponent<MeshRenderer>().material == weaponObject.GetComponent<MeshRenderer>().material &&
                         weaponPrefab.GetComponent<MeshFilter>().mesh == weaponObject.GetComponent<MeshFilter>().mesh &&
-                        weaponPrefab.GetComponent<Weapon>().BaseGunData.Name == weaponObject.GetComponent<Weapon>().BaseGunData.Name);
+                        weaponPrefab.GetComponent<Weapon>().BaseStats.Name == weaponObject.GetComponent<Weapon>().BaseStats.Name);
 
             if (match.Any())
             {

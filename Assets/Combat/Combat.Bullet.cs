@@ -1,31 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Combat
 {
-    public class BulletHit : MonoBehaviour
+    public class Bullet : MonoBehaviour
     {
-        public Rogue.UpgradeData RogueSnapshot;
+        public Rogue.StatDict RogueSnapshot;
 
         public float delayTime = 3f; // Optional delay to destroy the bullet after a certain time
 
-        public void Init(Rogue.UpgradeData rogueSnapshot, Transform firepoint) {
+        public void Init(Rogue.StatDict rogueSnapshot, Transform firepoint)
+        {
             RogueSnapshot = rogueSnapshot;
 
-            if(!RogueSnapshot.StatExists(Rogue.StatKey.Speed))
+            if (TryGetComponent(out Rigidbody rb))
             {
-                Debug.Log($"Bullet initialized without Speed value");
-                return;
+                rb.velocity = firepoint.forward * RogueSnapshot[Rogue.StatKey.Speed];
             }
-
-            if (TryGetComponent(out Rigidbody rb)) {
-                rb.velocity = firepoint.forward * rogueSnapshot.FindStat(Rogue.StatKey.Speed).FloatValue;
-            } else
+            else
             {
                 Debug.Log($"Bullet does not have RigidBody");
             }
-        
+
         }
 
         // This method is called when the bullet enters a trigger collider

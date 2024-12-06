@@ -6,31 +6,48 @@ namespace Combat
 {
     public class ControllerEventHandler : MonoBehaviour
     {
-        public GameObject Holster;
-        private Manager _combatManager;
-        public UnityEvent OnTriggerPull;
+        public Transform HolsterTransform;
+        public GameObject WeaponImprint;
+
+        public UnityEvent WeaponDestroyed = new();
+        public UnityEvent OnActivate = new();
+
+        public void ImprintWeapon(GameObject gameObject)
+        {
+            if (WeaponImprint != null && (WeaponImprint.GetComponent<Combat.Weapon>().BaseStats.Name != gameObject.GetComponent<Combat.Weapon>().BaseStats.Name))
+            {
+                Destroy(WeaponImprint);
+                WeaponImprint = null;
+            }
+
+            if (WeaponImprint == null)
+            {
+                WeaponImprint = Instantiate(gameObject);
+                WeaponImprint.transform.SetParent(HolsterTransform, false);
+                WeaponImprint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                WeaponImprint.SetActive(false);
+            }
+        }
+        public void SpawnWeapon()
+        {
+            Instantiate(WeaponImprint);
+        }
 
         public void Start()
         {
-            if (Holster)
+            if (!HolsterTransform)
             {
-                _combatManager.Holsters[gameObject.name] = Holster;
-            }
-            else
-            {
-                Debug.Log($"No Holster set for {gameObject}", gameObject);
+                Debug.Log($"No Holster Transform set for {gameObject}", gameObject);
             }
         }
 
-        public void HandleTriggerPull(InputAction.CallbackContext ctx)
+        public void HandleActivate(InputAction.CallbackContext ctx)
         {
-            //Debug.Log($"Input Ctx from {gameObject}: {ctx}");
             if (ctx.ReadValueAsButton())
             {
-                Debug.Log($"HandleTriggerPull on {gameObject.name} called on {ctx.action.name}");
-                OnTriggerPull.Invoke();
+                Debug.Log($"HandleActivate on {gameObject.name} called on {ctx.action.name}");
+                OnActivate.Invoke();
             }
         }
-
     }
 }

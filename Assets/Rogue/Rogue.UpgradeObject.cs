@@ -6,17 +6,11 @@ namespace Rogue
 {
     public class UpgradeObject : MonoBehaviour
     {
-        public UpgradeData Upgrade;
-
-
-
+        public StatBlock Upgrade;
         private UpgradeManager _upgradeManager;
-        //private SpawningScript _spawningScript;
         public void Start()
         {
-            _upgradeManager = UpgradeManager.FindLive(gameObject);
-            //_spawningScript = SpawningScript.FindLive(gameObject);
-
+            _upgradeManager = UpgradeManager.FindManager();
         }
 
         public void OnGrab(SelectEnterEventArgs ctx)
