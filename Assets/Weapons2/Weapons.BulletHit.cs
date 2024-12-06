@@ -8,7 +8,24 @@ namespace Weapons
     {
         public Rogue.UpgradeData RogueSnapshot;
 
-        public float delayTime = 3f; // Optional delay to destroy the bullet after a certain time
+        public float delayTime = 5f; // Optional delay to destroy the bullet after a certain time
+
+
+
+
+        private void Update()
+        {
+            delayTime -= Time.deltaTime;
+            
+
+
+            if(delayTime <= 0)
+            {
+                Destroy(gameObject);
+                
+            }
+
+        }
 
         public void Init(Rogue.UpgradeData rogueSnapshot, Transform firepoint) {
             RogueSnapshot = rogueSnapshot;
@@ -38,6 +55,13 @@ namespace Weapons
                 Destroy(other.gameObject); // Destroy the enemy the bullet hits
                 Destroy(gameObject);       // Destroy the bullet
             }
+
+            if(other.gameObject.CompareTag("BulletDestroy"))
+            {
+                Destroy(gameObject);
+              
+            }
+
         }
     }
 }

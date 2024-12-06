@@ -1,6 +1,7 @@
 using UnityEngine;
 using Weapons;
 
+
 public class HolsterScript : MonoBehaviour
 {
     public GameObject leftHolster;         // Reference to the left holster
@@ -10,14 +11,15 @@ public class HolsterScript : MonoBehaviour
     private Revolver bullet_count;  //Reference to the Revolver script
     public AudioClip GunDrop;       //Gun dropping sfx
     private AudioSource _audioSource;  //reference to the audio source (question do I even need to keep setting it like this?)
-
-
+    
 
 
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
     }
+
+   
 
 
     private void SpawnRevolver()
@@ -62,6 +64,8 @@ public class HolsterScript : MonoBehaviour
             // Log destruction
             Debug.Log("GunDestroy triggered!");
 
+            
+
             SpawnRevolver();     //Spawning revolvers before destroying the old ones, this keeps the data the exact same from the previous revolvers to prevent issues from occuring
 
             _audioSource.PlayOneShot(GunDrop, 1f);   //Playing audio for the revolvers hitting the ground
@@ -83,5 +87,5 @@ public class HolsterScript : MonoBehaviour
         }
     }
 
-    
+
 }
