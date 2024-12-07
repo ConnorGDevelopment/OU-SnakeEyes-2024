@@ -78,7 +78,6 @@ GameObject:
   - component: {fileID: 800730583745825977}
   - component: {fileID: 1785351320552707060}
   - component: {fileID: -2150935759002301606}
-  - component: {fileID: -4798273157930603312}
   m_Layer: 0
   m_Name: RevRevolver
   m_TagString: Untagged
@@ -200,7 +199,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.25, z: -0.25}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &800730583745825977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,10 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 1823286099060419912, guid: 5eeccb3ca343bb4428d8ec71c0ad2c43, type: 3}
-  GunData: {fileID: 11400000, guid: 7136808aae00889418c3e9fbd6c865d6, type: 2}
-  Firepoint: {fileID: 2884785736024238481}
-  _revolverSound: {fileID: 8300000, guid: 1e03dfa35680ffa4db80e77df684c8d1, type: 3}
-  bulletCount: 6
+  BaseStats: {fileID: 0}
 --- !u!114 &-2150935759002301606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,103 +402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164e48c5042b8904a862d39afd42d10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHolster: {fileID: 6578135707263193688, guid: ad5accefcc1196b4d88fdb169c91f0aa, type: 3}
-  rightHolster: {fileID: 7114974910510595410, guid: 85d17c794bee85148ac1fd249d7e3b5f, type: 3}
-  revolverPrefab: {fileID: 6748961492001946247}
-  GunDrop: {fileID: 8300000, guid: 0f701f5d5128ba54c8ecd3523c17454b, type: 3}
---- !u!82 &-4798273157930603312
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6748961492001946247}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  Controller: {fileID: 0}
+  WeaponTemplate: {fileID: 0}
+  WeaponDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
