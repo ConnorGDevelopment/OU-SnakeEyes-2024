@@ -26,12 +26,19 @@ namespace Enemies
                 if (value <= 0)
                 {
                     _currentHealth = 0;
-                    Destroy(gameObject);
                 }
                 else
                 {
                     _currentHealth = value;
                 }
+            }
+        }
+
+        public void Update()
+        {
+            if (CurrentHealth == 0)
+            {
+                Destroy(gameObject);
             }
         }
     }

@@ -14,7 +14,7 @@ namespace Combat
 
         public void ImprintWeapon(GameObject gameObject)
         {
-            if (WeaponImprint != null && (WeaponImprint.GetComponent<Combat.Weapon>().BaseStats.Name != gameObject.GetComponent<Combat.Weapon>().BaseStats.Name))
+            if (WeaponImprint != null && (WeaponImprint.GetComponent<Combat.Weapon>().BaseStats != gameObject.GetComponent<Combat.Weapon>().BaseStats))
             {
                 Destroy(WeaponImprint);
                 WeaponImprint = null;

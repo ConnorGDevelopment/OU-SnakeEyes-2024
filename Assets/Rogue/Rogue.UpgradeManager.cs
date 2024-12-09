@@ -1,5 +1,5 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Rogue
@@ -9,7 +9,8 @@ namespace Rogue
     {
         public List<StatBlock> Upgrades = new();
 
-        public StatDict Sum => Upgrades.Aggregate(new StatDict(), (prev, curr) => prev + curr.Stats);
+        public SerializedDictionary<Rogue.StatKey, float> Current => StatBlock.Sum(Upgrades.ToArray());
+
 
         public static UpgradeManager FindManager()
         {

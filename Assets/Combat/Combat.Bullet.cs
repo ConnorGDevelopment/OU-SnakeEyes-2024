@@ -1,14 +1,16 @@
+using AYellowpaper.SerializedCollections;
+using Enemies;
 using UnityEngine;
 
 namespace Combat
 {
     public class Bullet : MonoBehaviour
     {
-        public Rogue.StatDict RogueSnapshot;
+        public SerializedDictionary<Rogue.StatKey, float> RogueSnapshot;
 
         public float delayTime = 3f; // Optional delay to destroy the bullet after a certain time
 
-        public void Init(Rogue.StatDict rogueSnapshot, Transform firepoint)
+        public void Init(SerializedDictionary<Rogue.StatKey, float> rogueSnapshot, Transform firepoint)
         {
             RogueSnapshot = rogueSnapshot;
 
@@ -27,10 +29,10 @@ namespace Combat
         private void OnTriggerEnter(Collider other)
         {
             // Check if the object is tagged as "Enemy"
-            if (other.gameObject.CompareTag("Enemy"))
+            if (other.gameObject.TryGetComponent(out Enemy enemy))
             {
                 // Destroy the enemy and the bullet
-                Destroy(other.gameObject); // Destroy the enemy the bullet hits
+                enemy.CurrentHealth -= Rogue.StatBlock.GetInt(RogueSnapshot, Rogue.StatKey.Damage);
                 Destroy(gameObject);       // Destroy the bullet
             }
         }

@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -17,11 +18,11 @@ namespace Combat
         // Rogue Stats
         public Rogue.StatBlock BaseStats;
 
-        public Rogue.StatDict CurrentStats
+        public SerializedDictionary<Rogue.StatKey, float> CurrentStats
         {
             get
             {
-                return BaseStats.Stats + _upgradeManager.Sum;
+                return Rogue.StatBlock.Sum(BaseStats.Stats, _upgradeManager.Current);
             }
         }
 
@@ -32,13 +33,13 @@ namespace Combat
             get { return _currentAmmoCount; }
             set => _currentAmmoCount = value < 0
                     ? 0
-                    : value > CurrentStats.GetInt(Rogue.StatKey.AmmoCapacity)
-                        ? CurrentStats.GetInt(Rogue.StatKey.AmmoCapacity)
+                    : value > Rogue.StatBlock.GetInt(CurrentStats, Rogue.StatKey.AmmoCapacity)
+                        ? Rogue.StatBlock.GetInt(CurrentStats, Rogue.StatKey.AmmoCapacity)
                         : value;
         }
         public void ReloadAmmo()
         {
-            CurrentAmmoCount = CurrentStats.GetInt(Rogue.StatKey.AmmoCapacity);
+            CurrentAmmoCount = Rogue.StatBlock.GetInt(CurrentStats, Rogue.StatKey.AmmoCapacity);
         }
 
         public void Start()
@@ -63,7 +64,7 @@ namespace Combat
                 Debug.Log("No Child named BulletSpawn", gameObject);
             }
             _upgradeManager = Rogue.UpgradeManager.FindManager();
-            CurrentAmmoCount = CurrentStats.GetInt(Rogue.StatKey.AmmoCapacity);
+            CurrentAmmoCount = Rogue.StatBlock.GetInt(CurrentStats, Rogue.StatKey.AmmoCapacity);
 
         }
 
@@ -103,10 +104,18 @@ namespace Combat
             {
                 GameObject bullet = Instantiate(BulletPrefab, _bulletSpawn.position, _bulletSpawn.transform.rotation);
                 CurrentAmmoCount--;
-                bullet.GetComponent<Combat.Bullet>().Init(_upgradeManager.Sum, _bulletSpawn);
+                bullet.GetComponent<Combat.Bullet>().Init(_upgradeManager.Current, _bulletSpawn);
                 Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
             }
 
+        }
+
+        public void OnCollisionEnter(Collision collision)
+        {
+            if (collision.collider.gameObject.TryGetComponent(out TerrainCollider terrainCollider))
+            {
+                Destroy(gameObject, CurrentStats[Rogue.StatKey.ReloadSpeed]);
+            }
         }
     }
 }
