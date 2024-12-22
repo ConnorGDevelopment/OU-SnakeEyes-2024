@@ -1,71 +1,60 @@
+using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-namespace Rogue
+namespace Rogue;
+
+[CreateAssetMenu(menuName = "RogueStatBlock")]
+public class StatBlock : ScriptableObject
 {
-    public enum StatKey
-    {
-        None,
-        Damage,
-        Speed,
-        FireRate,
-        AmmoCapacity,
-        ReloadSpeed,
-        Health
-    }
+	public SerializedDictionary<StatKey, float> Stats;
 
-    [CreateAssetMenu(menuName = "RogueStatBlock")]
-    public class StatBlock : ScriptableObject
-    {
-        [SerializedDictionary("StatKey", "Value")]
-        public SerializedDictionary<Rogue.StatKey, float> Stats;
+	public static SerializedDictionary<StatKey, float> Sum(params StatBlock[] statBlocks)
+	{
+		SerializedDictionary<StatKey, float> serializedDictionary = new SerializedDictionary<StatKey, float>();
+		for (int i = 0; i < statBlocks.Length; i++)
+		{
+			foreach (KeyValuePair<StatKey, float> stat in statBlocks[i].Stats)
+			{
+				if (serializedDictionary.ContainsKey(stat.Key))
+				{
+					serializedDictionary[stat.Key] = serializedDictionary[stat.Key] + stat.Value;
+				}
+				else
+				{
+					serializedDictionary.Add(stat.Key, stat.Value);
+				}
+			}
+		}
+		return serializedDictionary;
+	}
 
-        public static SerializedDictionary<Rogue.StatKey, float> Sum(params StatBlock[] statBlocks)
-        {
-            SerializedDictionary<Rogue.StatKey, float> result = new();
+	public static SerializedDictionary<StatKey, float> Sum(params SerializedDictionary<StatKey, float>[] statDicts)
+	{
+		SerializedDictionary<StatKey, float> serializedDictionary = new SerializedDictionary<StatKey, float>();
+		for (int i = 0; i < statDicts.Length; i++)
+		{
+			foreach (KeyValuePair<StatKey, float> item in statDicts[i])
+			{
+				if (serializedDictionary.ContainsKey(item.Key))
+				{
+					serializedDictionary[item.Key] = serializedDictionary[item.Key] + item.Value;
+				}
+				else
+				{
+					serializedDictionary.Add(item.Key, item.Value);
+				}
+			}
+		}
+		return serializedDictionary;
+	}
 
-            foreach (StatBlock statBlock in statBlocks)
-            {
-                foreach (var stat in statBlock.Stats)
-                {
-                    if (result.ContainsKey(stat.Key))
-                    {
-                        result[stat.Key] = result[stat.Key] + stat.Value;
-                    }
-                    else
-                    {
-                        result.Add(stat.Key, stat.Value);
-                    }
-                }
-            }
-
-            return result;
-        }
-        public static SerializedDictionary<Rogue.StatKey, float> Sum(params SerializedDictionary<Rogue.StatKey, float>[] statDicts)
-        {
-            SerializedDictionary<Rogue.StatKey, float> result = new();
-
-            foreach (var statDict in statDicts)
-            {
-                foreach (var stat in statDict)
-                {
-                    if (result.ContainsKey(stat.Key))
-                    {
-                        result[stat.Key] = result[stat.Key] + stat.Value;
-                    }
-                    else
-                    {
-                        result.Add(stat.Key, stat.Value);
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public static int GetInt(SerializedDictionary<Rogue.StatKey, float> statDict, Rogue.StatKey statKey)
-        {
-            return statDict.ContainsKey(statKey) ? Mathf.RoundToInt(statDict[statKey]) : 0;
-        }
-    }
+	public static int GetInt(SerializedDictionary<StatKey, float> statDict, StatKey statKey)
+	{
+		if (!statDict.ContainsKey(statKey))
+		{
+			return 0;
+		}
+		return Mathf.RoundToInt(statDict[statKey]);
+	}
 }

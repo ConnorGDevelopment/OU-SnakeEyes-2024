@@ -1,121 +1,106 @@
 using AYellowpaper.SerializedCollections;
+using Rogue;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Combat
+namespace Combat;
+
+public class Weapon : MonoBehaviour
 {
+	private UpgradeManager _upgradeManager;
 
-    public class Weapon : MonoBehaviour
-    {
-        // GameObject References
-        private Rogue.UpgradeManager _upgradeManager;
-        private Transform _bulletSpawn;
-        private Combat.ControllerEventHandler _controllerEventHandler;
-        public GameObject BulletPrefab;
+	private Transform _bulletSpawn;
 
+	private ControllerEventHandler _controllerEventHandler;
 
-        // Rogue Stats
-        public Rogue.StatBlock BaseStats;
+	public GameObject BulletPrefab;
 
-        public SerializedDictionary<Rogue.StatKey, float> CurrentStats
-        {
-            get
-            {
-                return Rogue.StatBlock.Sum(BaseStats.Stats, _upgradeManager.Current);
-            }
-        }
+	public StatBlock BaseStats;
 
-        // Ammo
-        private int _currentAmmoCount;
-        public int CurrentAmmoCount
-        {
-            get { return _currentAmmoCount; }
-            set => _currentAmmoCount = value < 0
-                    ? 0
-                    : value > Rogue.StatBlock.GetInt(CurrentStats, Rogue.StatKey.AmmoCapacity)
-                        ? Rogue.StatBlock.GetInt(CurrentStats, Rogue.StatKey.AmmoCapacity)
-                        : value;
-        }
-        public void ReloadAmmo()
-        {
-            CurrentAmmoCount = Rogue.StatBlock.GetInt(CurrentStats, Rogue.StatKey.AmmoCapacity);
-        }
+	private int _currentAmmoCount;
 
-        public void Start()
-        {
-            if (BulletPrefab == null)
-            {
-                Debug.Log("No Bullet Prefab Assigned", gameObject);
-            }
+	public SerializedDictionary<StatKey, float> CurrentStats => StatBlock.Sum(BaseStats.Stats, _upgradeManager.Current);
 
-            if (BaseStats == null)
-            {
-                Debug.Log("No BaseStats Assigned", gameObject);
-            }
+	public int CurrentAmmoCount
+	{
+		get
+		{
+			return _currentAmmoCount;
+		}
+		set
+		{
+			_currentAmmoCount = ((value >= 0) ? ((value > StatBlock.GetInt(CurrentStats, StatKey.AmmoCapacity)) ? StatBlock.GetInt(CurrentStats, StatKey.AmmoCapacity) : value) : 0);
+		}
+	}
 
-            // Grab Bullet Spawn from child
-            if (gameObject.GetNamedChild("BulletSpawn").TryGetComponent(out Transform bulletSpawn))
-            {
-                _bulletSpawn = bulletSpawn;
-            }
-            else
-            {
-                Debug.Log("No Child named BulletSpawn", gameObject);
-            }
-            _upgradeManager = Rogue.UpgradeManager.FindManager();
-            CurrentAmmoCount = Rogue.StatBlock.GetInt(CurrentStats, Rogue.StatKey.AmmoCapacity);
+	public void ReloadAmmo()
+	{
+		CurrentAmmoCount = StatBlock.GetInt(CurrentStats, StatKey.AmmoCapacity);
+	}
 
-        }
+	public void Start()
+	{
+		if (BulletPrefab == null)
+		{
+			Debug.Log("No Bullet Prefab Assigned", base.gameObject);
+		}
+		if (BaseStats == null)
+		{
+			Debug.Log("No BaseStats Assigned", base.gameObject);
+		}
+		if (base.gameObject.GetNamedChild("BulletSpawn").TryGetComponent<Transform>(out var component))
+		{
+			_bulletSpawn = component;
+		}
+		else
+		{
+			Debug.Log("No Child named BulletSpawn", base.gameObject);
+		}
+		_upgradeManager = UpgradeManager.FindManager();
+		CurrentAmmoCount = StatBlock.GetInt(CurrentStats, StatKey.AmmoCapacity);
+	}
 
+	public void OnGrab(SelectEnterEventArgs ctx)
+	{
+		if (ctx.interactorObject.transform.parent.TryGetComponent<ControllerEventHandler>(out var component))
+		{
+			_controllerEventHandler = component;
+			_controllerEventHandler.ImprintWeapon(base.gameObject);
+			_controllerEventHandler.OnActivate.AddListener(FireBullet);
+		}
+	}
 
+	public void OnRelease(SelectExitEventArgs ctx)
+	{
+		_controllerEventHandler.OnActivate.RemoveAllListeners();
+	}
 
-        // These functions are triggered by the Select Enter/Exit events on the XR Grab Interactable component
-        // The Select Enter/Exit are triggered (only once) when grabbed or released
-        public void OnGrab(SelectEnterEventArgs ctx)
-        {
+	public void OnDestroy()
+	{
+		if ((bool)_controllerEventHandler)
+		{
+			_controllerEventHandler.WeaponDestroyed.Invoke();
+		}
+	}
 
-            if (ctx.interactorObject.transform.parent.TryGetComponent(out ControllerEventHandler controllerEventHandler))
-            {
-                _controllerEventHandler = controllerEventHandler;
-                _controllerEventHandler.ImprintWeapon(gameObject);
-                _controllerEventHandler.OnActivate.AddListener(FireBullet);
-            }
+	public void FireBullet()
+	{
+		Debug.Log(CurrentStats[StatKey.AmmoCapacity]);
+		if (CurrentAmmoCount > 0)
+		{
+			GameObject obj = Object.Instantiate(BulletPrefab, _bulletSpawn.position, _bulletSpawn.transform.rotation);
+			CurrentAmmoCount--;
+			obj.GetComponent<Bullet>().Init(CurrentStats, _bulletSpawn);
+			Debug.Log(base.gameObject.name + " Fired Bullet", base.gameObject);
+		}
+	}
 
-
-        }
-        public void OnRelease(SelectExitEventArgs ctx)
-        {
-            _controllerEventHandler.OnActivate.RemoveAllListeners();
-        }
-
-        public void OnDestroy()
-        {
-            if (_controllerEventHandler)
-            {
-                _controllerEventHandler.WeaponDestroyed.Invoke();
-            }
-        }
-
-        // Function called when trigger pull
-        public void FireBullet()
-        {
-            if (CurrentAmmoCount > 0)
-            {
-                GameObject bullet = Instantiate(BulletPrefab, _bulletSpawn.position, _bulletSpawn.transform.rotation);
-                CurrentAmmoCount--;
-                bullet.GetComponent<Combat.Bullet>().Init(_upgradeManager.Current, _bulletSpawn);
-                Debug.Log($"{gameObject.name} Fired Bullet", gameObject);
-            }
-
-        }
-
-        public void OnCollisionEnter(Collision collision)
-        {
-            if (collision.collider.gameObject.TryGetComponent(out TerrainCollider terrainCollider))
-            {
-                Destroy(gameObject, CurrentStats[Rogue.StatKey.ReloadSpeed]);
-            }
-        }
-    }
+	public void OnCollisionEnter(Collision collision)
+	{
+		if (collision.collider.gameObject.TryGetComponent<TerrainCollider>(out var _))
+		{
+			Object.Destroy(base.gameObject, CurrentStats[StatKey.ReloadSpeed]);
+		}
+	}
 }

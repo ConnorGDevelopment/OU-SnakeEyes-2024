@@ -2,52 +2,56 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-namespace Combat
+namespace Combat;
+
+public class ControllerEventHandler : MonoBehaviour
 {
-    public class ControllerEventHandler : MonoBehaviour
-    {
-        public Transform HolsterTransform;
-        public GameObject WeaponImprint;
+	public Transform HolsterTransform;
 
-        public UnityEvent WeaponDestroyed = new();
-        public UnityEvent OnActivate = new();
+	public GameObject WeaponImprint;
 
-        public void ImprintWeapon(GameObject gameObject)
-        {
-            if (WeaponImprint != null && (WeaponImprint.GetComponent<Combat.Weapon>().BaseStats != gameObject.GetComponent<Combat.Weapon>().BaseStats))
-            {
-                Destroy(WeaponImprint);
-                WeaponImprint = null;
-            }
+	public UnityEvent WeaponDestroyed = new UnityEvent();
 
-            if (WeaponImprint == null)
-            {
-                WeaponImprint = Instantiate(gameObject);
-                WeaponImprint.transform.SetParent(HolsterTransform, false);
-                WeaponImprint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-                WeaponImprint.SetActive(false);
-            }
-        }
-        public void SpawnWeapon()
-        {
-            Instantiate(WeaponImprint);
-        }
+	public UnityEvent OnActivate = new UnityEvent();
 
-        public void Start()
-        {
-            if (!HolsterTransform)
-            {
-                Debug.Log($"No Holster Transform set for {gameObject}", gameObject);
-            }
-        }
+	public void ImprintWeapon(GameObject gameObject)
+	{
+		if (WeaponImprint != null && WeaponImprint.GetComponent<Weapon>().BaseStats != gameObject.GetComponent<Weapon>().BaseStats)
+		{
+			Object.Destroy(WeaponImprint);
+			WeaponImprint = null;
+		}
+		if (WeaponImprint == null)
+		{
+			WeaponImprint = Object.Instantiate(gameObject);
+			WeaponImprint.transform.SetParent(HolsterTransform, worldPositionStays: false);
+			WeaponImprint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+			WeaponImprint.SetActive(value: false);
+		}
+	}
 
-        public void HandleActivate(InputAction.CallbackContext ctx)
-        {
-            if (ctx.ReadValueAsButton())
-            {
-                Debug.Log($"HandleActivate on {gameObject.name} called on {ctx.action.name}");
-                OnActivate.Invoke();
-            }
-        }
-    }
+	public void SpawnWeapon()
+	{
+		GameObject obj = Object.Instantiate(WeaponImprint, HolsterTransform);
+		obj.SetActive(value: true);
+		obj.GetComponent<Rigidbody>().isKinematic = false;
+	}
+
+	public void Start()
+	{
+		if (!HolsterTransform)
+		{
+			Debug.Log($"No Holster Transform set for {base.gameObject}", base.gameObject);
+		}
+		WeaponDestroyed.AddListener(SpawnWeapon);
+	}
+
+	public void HandleActivate(InputAction.CallbackContext ctx)
+	{
+		if (ctx.ReadValueAsButton())
+		{
+			Debug.Log("HandleActivate on " + base.gameObject.name + " called on " + ctx.action.name);
+			OnActivate.Invoke();
+		}
+	}
 }
