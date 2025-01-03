@@ -313,6 +313,9 @@ dotnet_diagnostic.IDE0001.severity = none
 # S3358: Ternary operators should not be nested
 dotnet_diagnostic.S3358.severity = none
 
+# IDE0060: Remove unused parameter if it is not part of a shipped public API
+dotnet_diagnostic.IDE0060.severity = none
+
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 tab_width = 4

@@ -1,23 +1,24 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Rogue;
-
-public class UpgradeObject : MonoBehaviour
+namespace Rogue
 {
-	public StatBlock Upgrade;
+    public class UpgradeObject : MonoBehaviour
+    {
+        public StatBlock Upgrade;
 
-	private UpgradeManager _upgradeManager;
+        private UpgradeManager _upgradeManager;
 
-	public void Start()
-	{
-		_upgradeManager = UpgradeManager.FindManager();
-	}
+        public void Start()
+        {
+            _upgradeManager = UpgradeManager.FindManager();
+        }
 
-	public void OnGrab(SelectEnterEventArgs ctx)
-	{
-		Debug.Log("Click");
-		_upgradeManager.Upgrades.Add(Upgrade);
-		Object.Destroy(base.gameObject);
-	}
+        public void OnGrab(SelectEnterEventArgs ctx)
+        {
+            Debug.Log("Click");
+            _upgradeManager.Upgrades.Add(Upgrade);
+            Object.Destroy(base.gameObject);
+        }
+    }
 }

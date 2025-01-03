@@ -1,12 +1,14 @@
-namespace Rogue;
-
-public enum StatKey
+namespace Rogue
 {
-	None,
-	Damage,
-	Speed,
-	FireRate,
-	AmmoCapacity,
-	ReloadSpeed,
-	Health
+
+    public enum StatKey
+    {
+        None,
+        Damage,
+        Speed,
+        FireRate,
+        AmmoCapacity,
+        ReloadSpeed,
+        Health
+    }
 }
