@@ -19,12 +19,12 @@ namespace Combat
         {
             if (WeaponImprint != null && WeaponImprint.GetComponent<Weapon>().BaseStats != gameObject.GetComponent<Weapon>().BaseStats)
             {
-                Object.Destroy(WeaponImprint);
+                Destroy(WeaponImprint);
                 WeaponImprint = null;
             }
             if (WeaponImprint == null)
             {
-                WeaponImprint = Object.Instantiate(gameObject);
+                WeaponImprint = Instantiate(gameObject);
                 WeaponImprint.transform.SetParent(HolsterTransform, worldPositionStays: false);
                 WeaponImprint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                 WeaponImprint.SetActive(value: false);
@@ -33,7 +33,7 @@ namespace Combat
 
         public void SpawnWeapon()
         {
-            GameObject obj = Object.Instantiate(WeaponImprint, HolsterTransform);
+            GameObject obj = Instantiate(WeaponImprint, HolsterTransform);
             obj.SetActive(value: true);
             obj.GetComponent<Rigidbody>().isKinematic = false;
         }
@@ -42,7 +42,7 @@ namespace Combat
         {
             if (!HolsterTransform)
             {
-                Debug.Log($"No Holster Transform set for {base.gameObject}", base.gameObject);
+                Debug.Log($"No Holster Transform set for {gameObject}", gameObject);
             }
             WeaponDestroyed.AddListener(SpawnWeapon);
         }
@@ -51,7 +51,7 @@ namespace Combat
         {
             if (ctx.ReadValueAsButton())
             {
-                Debug.Log("HandleActivate on " + base.gameObject.name + " called on " + ctx.action.name);
+                Debug.Log("HandleActivate on " + name + " called on " + ctx.action.name);
                 OnActivate.Invoke();
             }
         }

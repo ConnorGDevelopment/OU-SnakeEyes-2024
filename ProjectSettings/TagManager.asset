@@ -6,11 +6,9 @@ TagManager:
   tags:
   - Enemy
   - HandDetection
-  - GunDestroy
-  - LeftHand
-  - RightHand
   - UpgradeInteractable
   - RogueUpgradeManager
+  - ProximityWarning
   layers:
   - Default
   - TransparentFX

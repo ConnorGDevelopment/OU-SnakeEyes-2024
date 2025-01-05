@@ -10,14 +10,12 @@ namespace Combat
     {
         public SerializedDictionary<StatKey, float> RogueSnapshot;
 
-        public float delayTime = 3f;
-
         public void Init(SerializedDictionary<StatKey, float> rogueSnapshot, Transform firepoint)
         {
             RogueSnapshot = rogueSnapshot;
-            if (TryGetComponent<Rigidbody>(out var component))
+            if (TryGetComponent(out Rigidbody rb))
             {
-                component.velocity = firepoint.forward * RogueSnapshot[StatKey.Speed];
+                rb.velocity = firepoint.forward * RogueSnapshot[StatKey.Speed];
             }
             else
             {
@@ -27,18 +25,15 @@ namespace Combat
 
         public void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.TryGetComponent<Enemy>(out var component))
+            if (collision.gameObject.TryGetComponent(out Enemy enemy))
             {
-                component.CurrentHealth -= StatBlock.GetInt(RogueSnapshot, StatKey.Damage);
-                Object.Destroy(base.gameObject);
+                enemy.CurrentHealth -= StatBlock.GetInt(RogueSnapshot, StatKey.Damage);
+                Destroy(gameObject);
             }
-        }
 
-        public void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.TryGetComponent<TerrainCollider>(out var _))
+            if (collision.gameObject.TryGetComponent(out TerrainCollider _))
             {
-                Object.Destroy(base.gameObject);
+                Destroy(gameObject);
             }
         }
     }

@@ -43,19 +43,19 @@ namespace Combat
         {
             if (BulletPrefab == null)
             {
-                Debug.Log("No Bullet Prefab Assigned", base.gameObject);
+                Debug.Log("No Bullet Prefab Assigned", gameObject);
             }
             if (BaseStats == null)
             {
-                Debug.Log("No BaseStats Assigned", base.gameObject);
+                Debug.Log("No BaseStats Assigned", gameObject);
             }
-            if (base.gameObject.GetNamedChild("BulletSpawn").TryGetComponent<Transform>(out var component))
+            if (gameObject.GetNamedChild("BulletSpawn").TryGetComponent(out Transform bulletSpawnTransform))
             {
-                _bulletSpawn = component;
+                _bulletSpawn = bulletSpawnTransform;
             }
             else
             {
-                Debug.Log("No Child named BulletSpawn", base.gameObject);
+                Debug.Log("No Child named BulletSpawn", gameObject);
             }
             _upgradeManager = UpgradeManager.FindManager();
             CurrentAmmoCount = StatBlock.GetInt(CurrentStats, StatKey.AmmoCapacity);
@@ -63,15 +63,15 @@ namespace Combat
 
         public void OnGrab(SelectEnterEventArgs ctx)
         {
-            if (ctx.interactorObject.transform.parent.TryGetComponent<ControllerEventHandler>(out var component))
+            if (ctx.interactorObject.transform.parent.TryGetComponent(out ControllerEventHandler cte))
             {
-                _controllerEventHandler = component;
-                _controllerEventHandler.ImprintWeapon(base.gameObject);
+                _controllerEventHandler = cte;
+                _controllerEventHandler.ImprintWeapon(gameObject);
                 _controllerEventHandler.OnActivate.AddListener(FireBullet);
             }
         }
 
-        public void OnRelease(SelectExitEventArgs ctx)
+        public void OnRelease(SelectExitEventArgs _)
         {
             _controllerEventHandler.OnActivate.RemoveAllListeners();
         }
@@ -89,10 +89,10 @@ namespace Combat
             Debug.Log(CurrentStats[StatKey.AmmoCapacity]);
             if (CurrentAmmoCount > 0)
             {
-                GameObject obj = Object.Instantiate(BulletPrefab, _bulletSpawn.position, _bulletSpawn.transform.rotation);
+                GameObject obj = Instantiate(BulletPrefab, _bulletSpawn.position, _bulletSpawn.transform.rotation);
                 CurrentAmmoCount--;
                 obj.GetComponent<Bullet>().Init(CurrentStats, _bulletSpawn);
-                Debug.Log(base.gameObject.name + " Fired Bullet", base.gameObject);
+                Debug.Log(gameObject.name + " Fired Bullet", gameObject);
             }
         }
 
@@ -100,7 +100,7 @@ namespace Combat
         {
             if (collision.collider.gameObject.TryGetComponent<TerrainCollider>(out var _))
             {
-                Object.Destroy(base.gameObject, CurrentStats[StatKey.ReloadSpeed]);
+                Destroy(gameObject, CurrentStats[StatKey.ReloadSpeed]);
             }
         }
     }

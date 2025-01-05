@@ -7,6 +7,7 @@ namespace Enemies
     public class Enemy : MonoBehaviour
     {
         public StatBlock EnemyData;
+        public AudioSource ProximityWarningSource;
 
         public int _currentHealth;
 
@@ -33,7 +34,16 @@ namespace Enemies
         {
             if (EnemyData == null)
             {
-                Debug.Log("No default values, EnemyData not assigned an UpgradeData SO", base.gameObject);
+                Debug.Log("No default values, EnemyData not assigned an UpgradeData SO", gameObject);
+            }
+
+            if (ProximityWarningSource == null)
+            {
+                Debug.Log("No Audio Source set for Proximity Warning", gameObject);
+            }
+            else if (ProximityWarningSource.clip == null)
+            {
+                Debug.Log("No Audio Clip set in Audio Source for Proximity Warning", gameObject);
             }
         }
 
@@ -41,7 +51,15 @@ namespace Enemies
         {
             if (CurrentHealth == 0)
             {
-                Object.Destroy(base.gameObject);
+                Destroy(gameObject);
+            }
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("ProximityWarning"))
+            {
+                ProximityWarningSource.PlayOneShot(ProximityWarningSource.clip, 1f);
             }
         }
     }
